@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - WebCraft Studio | Tips & Artikel Seputar Website</title>
+    <meta name="description" content="Baca tips dan artikel seputar website, digital marketing, dan teknologi terbaru. Update pengetahuan Anda tentang dunia website dan bisnis online.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+                        'manrope': ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#0EA5E9',
+                        'primary-dark': '#0284C7',
+                        'secondary': '#6366F1',
+                        'text-dark': '#111111',
+                        'text-light': '#64748B',
+                        'bg-light': '#F8F8F8',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .btn-primary { background: #111111; color: white; transition: all 0.3s ease; }
+        .btn-primary:hover { background: #333333; transform: translateY(-2px); }
+        .btn-secondary { background: #0EA5E9; color: white; transition: all 0.3s ease; }
+        .btn-secondary:hover { background: #0284C7; transform: translateY(-2px); }
+        .text-gradient { background: linear-gradient(135deg, #0EA5E9, #6366F1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .blog-card { background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,248,248,0.9) 100%); }
+        .category-badge { background: rgba(14, 165, 233, 0.1); color: #0EA5E9; }
+    </style>
+</head>
+<body class="font-manrope text-text-dark bg-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-jakarta font-bold text-gradient">WebCraft</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-text-light hover:text-primary font-medium transition-colors">Beranda</a>
+                        <a href="about.html" class="text-text-light hover:text-primary font-medium transition-colors">Tentang Kami</a>
+                        <a href="services.html" class="text-text-light hover:text-primary font-medium transition-colors">Layanan</a>
+                        <a href="portfolio.html" class="text-text-light hover:text-primary font-medium transition-colors">Portofolio</a>
+                        <a href="pricing.html" class="text-text-light hover:text-primary font-medium transition-colors">Harga</a>
+                        <a href="blog.html" class="text-text-dark hover:text-primary font-medium transition-colors">Blog</a>
+                        <a href="contact.html" class="btn-primary px-6 py-2 rounded-lg font-medium">Konsultasi Gratis</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-text-dark hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Beranda</a>
+                <a href="about.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Tentang Kami</a>
+                <a href="services.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Layanan</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Portofolio</a>
+                <a href="pricing.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Harga</a>
+                <a href="blog.html" class="block px-3 py-2 text-text-dark hover:text-primary font-medium">Blog</a>
+                <a href="contact.html" class="block px-3 py-2 btn-primary rounded-lg font-medium text-center mt-4">Konsultasi Gratis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-r from-primary/5 to-secondary/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h1 class="text-5xl lg:text-6xl font-jakarta font-bold mb-6">
+                    Blog & <span class="text-gradient">Artikel</span>
+                </h1>
+                <p class="text-xl text-text-light max-w-3xl mx-auto leading-relaxed">
+                    Tips, panduan, dan insight terbaru seputar website, digital marketing, 
+                    dan teknologi untuk membantu bisnis Anda tumbuh di era digital.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-jakarta font-bold mb-4">Artikel Unggulan</h2>
+                <p class="text-xl text-text-light">
+                    Artikel pilihan dengan insight berharga untuk bisnis Anda.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1920&auto=format&fit=crop" 
+                         alt="Featured Article" 
+                         class="rounded-2xl shadow-2xl w-full h-auto">
+                </div>
+                <div data-aos="fade-left">
+                    <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                        Website Strategy
+                    </div>
+                    <h3 class="text-3xl font-jakarta font-bold mb-6">
+                        10 Alasan Mengapa Bisnis Anda Butuh Website di Era Digital
+                    </h3>
+                    <p class="text-text-light text-lg mb-6 leading-relaxed">
+                        Di era digital saat ini, website bukan lagi pilihan melainkan kebutuhan penting untuk setiap bisnis. 
+                        Dari meningkatkan credibility hingga menjangkau customer lebih luas, 
+                        website memiliki peran vital dalam pertumbuhan bisnis...
+                    </p>
+                    <div class="flex items-center text-text-light text-sm mb-6">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        5 min read • December 15, 2024
+                    </div>
+                    <a href="#" class="btn-secondary px-6 py-3 rounded-lg font-semibold inline-flex items-center">
+                        Baca Selengkapnya
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section class="py-20 bg-bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-jakarta font-bold mb-4">Kategori Artikel</h2>
+                <p class="text-xl text-text-light">
+                    Temukan artikel sesuai dengan kebutuhan dan minat Anda.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-jakarta font-semibold mb-2">Website Development</h3>
+                    <p class="text-text-light text-sm mb-4">Tips dan panduan mengenai pembuatan dan pengembangan website</p>
+                    <span class="text-primary text-sm font-medium">12 Artikel</span>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-jakarta font-semibold mb-2">Digital Marketing</h3>
+                    <p class="text-text-light text-sm mb-4">Strategi pemasaran digital dan SEO untuk bisnis online</p>
+                    <span class="text-secondary text-sm font-medium">8 Artikel</span>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-jakarta font-semibold mb-2">Business Tips</h3>
+                    <p class="text-text-light text-sm mb-4">Insight dan tips mengembangkan bisnis di era digital</p>
+                    <span class="text-primary text-sm font-medium">15 Artikel</span>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-jakarta font-semibold mb-2">Technology Trends</h3>
+                    <p class="text-text-light text-sm mb-4">Update teknologi terbaru dan tren website masa depan</p>
+                    <span class="text-secondary text-sm font-medium">6 Artikel</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-jakarta font-bold mb-4">Artikel Terbaru</h2>
+                <p class="text-xl text-text-light">
+                    Temukan artikel terbaru dan update dari dunia website dan digital.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="blog-card rounded-2xl shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1920&auto=format&fit=crop" 
+                         alt="SEO Tips" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            Digital Marketing
+                        </div>
+                        <h3 class="text-xl font-jakarta font-semibold mb-3">
+                            Panduan Lengkap SEO untuk Pemula: Meningkatkan Ranking Website di Google
+                        </h3>
+                        <p class="text-text-light text-sm mb-4">
+                            Belajar SEO dari awal sampai mahir. Tips dan strategi praktis untuk meningkatkan ranking website Anda di mesin pencari Google...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-text-light text-xs">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Dec 10, 2024 • 8 min read
+                            </div>
+                            <a href="#" class="text-primary hover:text-primary-dark font-medium text-sm">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card rounded-2xl shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=1920&auto=format&fit=crop" 
+                         alt="E-commerce Tips" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            Business Tips
+                        </div>
+                        <h3 class="text-xl font-jakarta font-semibold mb-3">
+                            Cara Memulai Bisnis Online: Panduan Lengkap untuk Pemula
+                        </h3>
+                        <p class="text-text-light text-sm mb-4">
+                            Panduan step-by-step memulai bisnis online dari nol. Dari riset pasar hingga launching website e-commerce...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-text-light text-xs">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Dec 8, 2024 • 12 min read
+                            </div>
+                            <a href="#" class="text-primary hover:text-primary-dark font-medium text-sm">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card rounded-2xl shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1920&auto=format&fit=crop" 
+                         alt="Website Design" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            Website Development
+                        </div>
+                        <h3 class="text-xl font-jakarta font-semibold mb-3">
+                            7 Kesalahan Umum dalam Design Website yang Harus Dihindari
+                        </h3>
+                        <p class="text-text-light text-sm mb-4">
+                            Hindari kesalahan design website yang bisa mengurangi conversion rate. Pelajari solusi untuk setiap masalah...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-text-light text-xs">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Dec 5, 2024 • 6 min read
+                            </div>
+                            <a href="#" class="text-primary hover:text-primary-dark font-medium text-sm">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="blog-card rounded-2xl shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1920&auto=format&fit=crop" 
+                         alt="Mobile Responsive" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            Technology Trends
+                        </div>
+                        <h3 class="text-xl font-jakarta font-semibold mb-3">
+                            Pentingnya Mobile-First Design di Era Smartphone
+                        </h3>
+                        <p class="text-text-light text-sm mb-4">
+                            Mengapa mobile-first design menjadi krusial untuk kesuksesan website. Statistik dan best practices terbaru...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-text-light text-xs">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Dec 3, 2024 • 7 min read
+                            </div>
+                            <a href="#" class="text-primary hover:text-primary-dark font-medium text-sm">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="blog-card rounded-2xl shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a58d?q=80&w=1920&auto=format&fit=crop" 
+                         alt="Content Marketing" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            Digital Marketing
+                        </div>
+                        <h3 class="text-xl font-jakarta font-semibold mb-3">
+                            Content Marketing: Strategi Jitu Meningkatkan Traffic Website
+                        </h3>
+                        <p class="text-text-light text-sm mb-4">
+                            Panduan lengkap content marketing untuk website. Dari riset keyword hingga content calendar yang efektif...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-text-light text-xs">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Nov 30, 2024 • 10 min read
+                            </div>
+                            <a href="#" class="text-primary hover:text-primary-dark font-medium text-sm">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="blog-card rounded-2xl shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1521791135444-5afb472fbd83?q=80&w=1920&auto=format&fit=crop" 
+                         alt="Website Security" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="category-badge inline-block px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            Website Development
+                        </div>
+                        <h3 class="text-xl font-jakarta font-semibold mb-3">
+                            Website Security: Melindungi Website dari Serangan Cyber
+                        </h3>
+                        <p class="text-text-light text-sm mb-4">
+                            Panduan keamanan website untuk melindungi bisnis Anda. Tips dan tools yang wajib diketahui...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-text-light text-xs">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Nov 28, 2024 • 9 min read
+                            </div>
+                            <a href="#" class="text-primary hover:text-primary-dark font-medium text-sm">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div data-aos="fade-up">
+                <h2 class="text-4xl font-jakarta font-bold mb-6">
+                    Dapatkan Update Artikel Terbaru
+                </h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Langganan newsletter kami untuk mendapatkan artikel, tips, dan insight terbaru 
+                    seputar website dan digital marketing langsung di email Anda.
+                </p>
+                
+                <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Masukkan email Anda" 
+                           class="flex-1 px-4 py-3 rounded-lg text-text-dark focus:outline-none">
+                    <button type="submit" 
+                            class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Langganan
+                    </button>
+                </form>
+                
+                <p class="text-sm mt-4 opacity-75">
+                    Gratis, unsubscribe kapan saja. Kami menghargai privasi Anda.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-3xl font-jakarta font-bold text-gradient mb-4">WebCraft Studio</div>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    Jasa pembuatan website profesional yang fokus pada hasil dan kepuasan klien. 
+                    Kami membantu bisnis Anda tumbuh di era digital.
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-400 text-sm">
+                        © 2024 WebCraft Studio. All rights reserved. | Jasa Pembuatan Website Profesional
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Newsletter form
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Anda akan segera menerima update artikel terbaru kami.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

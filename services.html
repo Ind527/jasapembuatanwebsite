@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan - WebCraft Studio | Jasa Pembuatan Website Profesional</title>
+    <meta name="description" content="Layanan pembuatan website lengkap: Company Profile, E-commerce, Landing Page, Custom Web App, SEO & Maintenance. Konsultasi gratis!">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+                        'manrope': ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#0EA5E9',
+                        'primary-dark': '#0284C7',
+                        'secondary': '#6366F1',
+                        'text-dark': '#111111',
+                        'text-light': '#64748B',
+                        'bg-light': '#F8F8F8',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .btn-primary { background: #111111; color: white; transition: all 0.3s ease; }
+        .btn-primary:hover { background: #333333; transform: translateY(-2px); }
+        .btn-secondary { background: #0EA5E9; color: white; transition: all 0.3s ease; }
+        .btn-secondary:hover { background: #0284C7; transform: translateY(-2px); }
+        .text-gradient { background: linear-gradient(135deg, #0EA5E9, #6366F1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .service-card { background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,248,248,0.9) 100%); }
+    </style>
+</head>
+<body class="font-manrope text-text-dark bg-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-jakarta font-bold text-gradient">WebCraft</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-text-light hover:text-primary font-medium transition-colors">Beranda</a>
+                        <a href="about.html" class="text-text-light hover:text-primary font-medium transition-colors">Tentang Kami</a>
+                        <a href="services.html" class="text-text-dark hover:text-primary font-medium transition-colors">Layanan</a>
+                        <a href="portfolio.html" class="text-text-light hover:text-primary font-medium transition-colors">Portofolio</a>
+                        <a href="pricing.html" class="text-text-light hover:text-primary font-medium transition-colors">Harga</a>
+                        <a href="contact.html" class="btn-primary px-6 py-2 rounded-lg font-medium">Konsultasi Gratis</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-text-dark hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Beranda</a>
+                <a href="about.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Tentang Kami</a>
+                <a href="services.html" class="block px-3 py-2 text-text-dark hover:text-primary font-medium">Layanan</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Portofolio</a>
+                <a href="pricing.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Harga</a>
+                <a href="contact.html" class="block px-3 py-2 btn-primary rounded-lg font-medium text-center mt-4">Konsultasi Gratis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-r from-primary/5 to-secondary/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h1 class="text-5xl lg:text-6xl font-jakarta font-bold mb-6">
+                    Layanan <span class="text-gradient">Kami</span>
+                </h1>
+                <p class="text-xl text-text-light max-w-3xl mx-auto leading-relaxed">
+                    Solusi website lengkap untuk setiap kebutuhan bisnis Anda. 
+                    Dari company profile hingga custom web app, kami siap membantu.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Company Profile -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">Website Company Profile</h3>
+                    <p class="text-text-light mb-6">
+                        Tampilkan profesionalisme bisnis Anda dengan website company profile yang elegan dan informatif.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Design modern dan profesional
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Halaman about, services, portfolio
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Contact form dan maps integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            SEO optimized
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-primary">Mulai Rp 1,5jt</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- E-commerce -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M9 21a2 2 0 100-4 2 2 0 000 4zM15 21a2 2 0 100-4 2 2 0 000 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">Toko Online (E-commerce)</h3>
+                    <p class="text-text-light mb-6">
+                        Jualan online lebih mudah dengan toko online yang lengkap fitur dan mudah dikelola.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Shopping cart dan payment gateway
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Inventory management system
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Order tracking dan shipping
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Mobile app integration ready
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-secondary">Mulai Rp 5jt</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Landing Page -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">Landing Page Campaign</h3>
+                    <p class="text-text-light mb-6">
+                        Landing page yang dirancang khusus untuk konversi tinggi dalam campaign marketing Anda.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Design conversion-focused
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            A/B testing ready
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Analytics integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Fast loading speed
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-primary">Mulai Rp 2,5jt</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Booking System -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">Sistem Reservasi/Booking</h3>
+                    <p class="text-text-light mb-6">
+                        Sistem booking online yang efisien untuk bisnis jasa, klinik, salon, atau rental.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Real-time availability
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Automated notifications
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Payment integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Admin dashboard
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-secondary">Mulai Rp 4jt</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- UMKM Website -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">Website UMKM/Startup</h3>
+                    <p class="text-text-light mb-6">
+                        Solusi terjangkau untuk UMKM dan startup yang ingin go digital dengan website profesional.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Budget-friendly package
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Essential business features
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Scalable for growth
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Training dan support
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-primary">Mulai Rp 1jt</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Custom Web App -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">Custom Web App</h3>
+                    <p class="text-text-light mb-6">
+                        Solusi custom untuk kebutuhan bisnis yang spesifik dengan sistem yang kompleks.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Custom business logic
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Database design & management
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            API integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-secondary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Enterprise security
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-secondary">Konsultasi</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Konsultasi</a>
+                    </div>
+                </div>
+
+                <!-- SEO & Maintenance -->
+                <div class="service-card p-8 rounded-2xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="700">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-jakarta font-semibold mb-4">SEO & Maintenance</h3>
+                    <p class="text-text-light mb-6">
+                        Jaga website Anda tetap optimal dan ranking tinggi di Google dengan layanan SEO dan maintenance.
+                    </p>
+                    <ul class="text-sm text-text-light space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Keyword research & optimization
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Content creation & blog
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Technical SEO audit
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Regular backup & updates
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-primary">Mulai Rp 800rb/bulan</span>
+                        <a href="contact.html" class="btn-secondary px-6 py-2 rounded-lg font-medium">Pesan Sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-jakarta font-bold mb-4">Proses Kerja Kami</h2>
+                <p class="text-xl text-text-light max-w-3xl mx-auto">
+                    Proses yang terstruktur dan transparan untuk memastikan hasil yang memuaskan.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+                    <h3 class="text-xl font-jakarta font-semibold mb-3">Konsultasi</h3>
+                    <p class="text-text-light">Diskusi kebutuhan dan tujuan website Anda dengan tim kami.</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+                    <h3 class="text-xl font-jakarta font-semibold mb-3">Perencanaan</h3>
+                    <p class="text-text-light">Buat konsep, wireframe, dan timeline project yang jelas.</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+                    <h3 class="text-xl font-jakarta font-semibold mb-3">Development</h3>
+                    <p class="text-text-light">Proses pembuatan website dengan update berkala untuk Anda.</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">4</div>
+                    <h3 class="text-xl font-jakarta font-semibold mb-3">Launch</h3>
+                    <p class="text-text-light">Testing, revisi, dan website Anda siap untuk diluncurkan!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div data-aos="fade-up">
+                <h2 class="text-4xl font-jakarta font-bold mb-6">
+                    Pilih Layanan yang Sesuai
+                </h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                    Masih bingung memilih layanan yang tepat? Konsultasikan dengan kami 
+                    dan dapatkan rekomendasi terbaik untuk bisnis Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+                        Konsultasi Gratis
+                    </a>
+                    <a href="pricing.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary transition-colors">
+                        Lihat Paket Harga
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-3xl font-jakarta font-bold text-gradient mb-4">WebCraft Studio</div>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    Jasa pembuatan website profesional yang fokus pada hasil dan kepuasan klien. 
+                    Kami membantu bisnis Anda tumbuh di era digital.
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-400 text-sm">
+                        © 2024 WebCraft Studio. All rights reserved. | Jasa Pembuatan Website Profesional
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
