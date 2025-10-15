@@ -1,65 +1,75 @@
-// Initialize AOS
-AOS.init({
-    duration: 1000,
-    once: true,
-    offset: 100
-});
-
-// Initialize Vanta.js background
-VANTA.BIRDS({
-    el: "#vanta-bg",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    backgroundColor: 0xffffff,
-    color1: 0x0ea5e9,
-    color2: 0x6366f1,
-    birdSize: 1.2,
-    wingSpan: 30,
-    speedLimit: 5,
-    separation: 20,
-    alignment: 20,
-    cohesion: 20,
-    quantity: 2
-});
-
-// Initialize Splide sliders
+// Wait for DOM to be ready before initializing
 document.addEventListener('DOMContentLoaded', function() {
-    // Portfolio slider
-    new Splide('#portfolio-slider', {
-        type: 'loop',
-        perPage: 3,
-        perMove: 1,
-        gap: '2rem',
-        autoplay: true,
-        interval: 4000,
-        pauseOnHover: true,
-        breakpoints: {
-            1024: {
-                perPage: 2,
-            },
-            640: {
-                perPage: 1,
-            }
-        }
-    }).mount();
+    // Initialize AOS (if available)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    }
 
-    // Testimonial slider
-    new Splide('#testimonial-slider', {
-        type: 'loop',
-        perPage: 1,
-        perMove: 1,
-        gap: '2rem',
-        autoplay: true,
-        interval: 6000,
-        pauseOnHover: true,
-        arrows: false,
-        pagination: true
-    }).mount();
+    // Initialize Vanta.js background (only if VANTA is loaded and element exists)
+    if (typeof VANTA !== 'undefined' && document.getElementById('vanta-bg')) {
+        VANTA.BIRDS({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundColor: 0xffffff,
+            color1: 0x0ea5e9,
+            color2: 0x6366f1,
+            birdSize: 1.2,
+            wingSpan: 30,
+            speedLimit: 5,
+            separation: 20,
+            alignment: 20,
+            cohesion: 20,
+            quantity: 2
+        });
+    }
+
+    // Portfolio slider (only if element exists)
+    const portfolioSlider = document.getElementById('portfolio-slider');
+    if (portfolioSlider && typeof Splide !== 'undefined') {
+        new Splide('#portfolio-slider', {
+            type: 'loop',
+            perPage: 3,
+            perMove: 1,
+            gap: '2rem',
+            autoplay: true,
+            interval: 4000,
+            pauseOnHover: true,
+            breakpoints: {
+                1024: {
+                    perPage: 2,
+                },
+                640: {
+                    perPage: 1,
+                }
+            }
+        }).mount();
+    }
+
+    // Testimonial slider (only if element exists)
+    const testimonialSlider = document.getElementById('testimonial-slider');
+    if (testimonialSlider && typeof Splide !== 'undefined') {
+        new Splide('#testimonial-slider', {
+            type: 'loop',
+            perPage: 1,
+            perMove: 1,
+            gap: '2rem',
+            autoplay: true,
+            interval: 6000,
+            pauseOnHover: true,
+            arrows: false,
+            pagination: true
+        }).mount();
+    }
 });
 
 // Mobile menu toggle
