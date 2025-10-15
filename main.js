@@ -134,7 +134,7 @@ document.querySelectorAll('.counter-section').forEach(el => {
 // WhatsApp floating button (optional)
 function createWhatsAppButton() {
     const waButton = document.createElement('a');
-    waButton.href = 'https://wa.me/6281234567890';
+    waButton.href = 'https://wa.me/6285122140764';
     waButton.target = '_blank';
     waButton.className = 'fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all z-50';
     waButton.innerHTML = `
