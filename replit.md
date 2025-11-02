@@ -40,10 +40,22 @@ Static HTML website for SitusKita, a professional web development services compa
 - **Cache Control**: Disabled to ensure latest changes are visible
 
 ## Recent Changes
+- **2025-11-02 (Update 3)**: Enhanced Mobile/Tablet UX and Integrated Order Tracking System
+  - Added logout button for mobile/tablet users in affiliate dashboard
+  - Redesigned statistics cards with responsive grid (2 columns mobile, 4 desktop)
+  - Added Total Revenue card to affiliate dashboard
+  - Updated referral links to direct to contact form (/contact.html?ref=CODE)
+  - Integrated consultation form with order tracking and affiliate system
+  - Automatic tracking code generation for each order submission
+  - Modal success notification showing tracking code to customers
+  - Cross-page affiliate attribution using sessionStorage
+  - Orders automatically credited to correct affiliate with revenue and commission tracking
+  - Admin and sales dashboards auto-update with new orders from localStorage
+
 - **2025-11-02 (Update 2)**: Added Clerk Authentication to Affiliate System
   - Integrated Clerk authentication using CDN (no build tools required)
   - Created clerk-auth.js for authentication logic and role-based access
-  - Implemented Admin role (admin@situskita.site) with sales management features
+  - Implemented Admin role (sultancisoka@gmail.com) with sales management features
   - Implemented Sales role (all other users) with personal dashboard
   - Admin features: manage sales team, view all statistics, add/remove/deactivate sales
   - Sales features: personal affiliate code, click tracking, commission tracking
