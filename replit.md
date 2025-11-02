@@ -1,7 +1,7 @@
 # SitusKita - Website Jasa Pembuatan Website
 
 ## Overview
-Static HTML website for SitusKita, a professional web development services company. The website showcases services, portfolio, pricing, and contact information. **Now includes Affiliate System and Order Tracking features** - both frontend-only solutions using localStorage.
+Static HTML website for SitusKita, a professional web development services company. The website showcases services, portfolio, pricing, and contact information. **Now includes Affiliate System with Clerk Authentication and Order Tracking features** - frontend-only solutions using localStorage and Clerk for secure login.
 
 ## Project Architecture
 - **Frontend**: Static HTML/CSS/JavaScript
@@ -24,10 +24,11 @@ Static HTML website for SitusKita, a professional web development services compa
 ├── contact.html        # Contact page
 ├── blog.html          # Blog page
 ├── testimonials.html  # Testimonials page
-├── affiliate.html      # Affiliate dashboard page
+├── affiliate.html      # Affiliate dashboard page (Clerk protected)
 ├── order-tracking.html # Order tracking page
 ├── main.js            # Main JavaScript file
 ├── affiliate.js       # Affiliate system logic
+├── clerk-auth.js      # Clerk authentication & role-based access
 ├── order-tracking.js  # Order tracking system logic
 ├── server.js          # Node.js static file server
 └── *.jpeg            # Portfolio images
@@ -39,6 +40,16 @@ Static HTML website for SitusKita, a professional web development services compa
 - **Cache Control**: Disabled to ensure latest changes are visible
 
 ## Recent Changes
+- **2025-11-02 (Update 2)**: Added Clerk Authentication to Affiliate System
+  - Integrated Clerk authentication using CDN (no build tools required)
+  - Created clerk-auth.js for authentication logic and role-based access
+  - Implemented Admin role (admin@situskita.site) with sales management features
+  - Implemented Sales role (all other users) with personal dashboard
+  - Admin features: manage sales team, view all statistics, add/remove/deactivate sales
+  - Sales features: personal affiliate code, click tracking, commission tracking
+  - Clerk Publishable Key: pk_test_ZHluYW1pYy10YWhyLTk1LmNsZXJrLmFjY291bnRzLmRldiQ
+  - Frontend API: dynamic-tahr-95.clerk.accounts.dev
+  
 - **2025-11-02**: Added Affiliate & Order Tracking System
   - Created affiliate.js for managing affiliate codes, referral links, and commission tracking
   - Created order-tracking.js for order status tracking system

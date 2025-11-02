@@ -15,6 +15,15 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     
+    <!-- Clerk Authentication -->
+    <script
+        async
+        crossorigin="anonymous"
+        data-clerk-publishable-key="pk_test_ZHluYW1pYy10YWhyLTk1LmNsZXJrLmFjY291bnRzLmRldiQ"
+        src="https://dynamic-tahr-95.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"
+        type="text/javascript"
+    ></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -64,6 +73,7 @@
                         <a href="affiliate.html" class="text-primary font-medium transition-colors">Affiliate</a>
                         <a href="order-tracking.html" class="text-text-light hover:text-primary font-medium transition-colors">Tracking</a>
                         <a href="contact.html" class="btn-primary px-6 py-2 rounded-lg font-medium">Konsultasi Gratis</a>
+                        <div id="user-button"></div>
                     </div>
                 </div>
                 <div class="md:hidden">
@@ -90,8 +100,21 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-24 pb-16">
+    <!-- Authentication Container -->
+    <div id="auth" class="min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-4">
+        <div class="text-center mb-8 max-w-2xl">
+            <h1 class="text-4xl font-jakarta font-bold mb-4">
+                Dashboard <span class="text-gradient">Affiliate</span>
+            </h1>
+            <p class="text-xl text-text-light">
+                Silakan login untuk mengakses dashboard Anda
+            </p>
+        </div>
+        <div id="clerk-signin-container" class="w-full max-w-md"></div>
+    </div>
+
+    <!-- Main Content (Protected) -->
+    <main id="affiliate-content" class="pt-24 pb-16" style="display:none">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="text-center mb-12">
@@ -248,6 +271,7 @@
 
     <!-- Load Scripts -->
     <script src="affiliate.js"></script>
+    <script src="clerk-auth.js"></script>
     <script src="main.js"></script>
     
     <script>
