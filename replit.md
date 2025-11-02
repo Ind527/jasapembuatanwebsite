@@ -40,6 +40,15 @@ Static HTML website for SitusKita, a professional web development services compa
 - **Cache Control**: Disabled to ensure latest changes are visible
 
 ## Recent Changes
+- **2025-11-02 (Update 4)**: Comprehensive Order Management Enhancements
+  - Enhanced dashboard order tables with complete data display (ID, buyer name, email, product, date, status, sales name)
+  - Added action column with 4 buttons: View Detail (modal), Change Status (dropdown), Delete Order (with confirmation), Contact Buyer (WhatsApp)
+  - Localized navigation menu text from "Tracking" to "Pelacakan" across all pages
+  - Redesigned order tracking timeline with centered, responsive layout and smooth animations
+  - Updated sales referral links to redirect directly to contact form section (#form-konsultasi) with auto-scroll
+  - Improved mobile responsiveness for order tables and action buttons
+  - WhatsApp integration for direct buyer communication from dashboard
+
 - **2025-11-02 (Update 3)**: Enhanced Mobile/Tablet UX and Integrated Order Tracking System
   - Added logout button for mobile/tablet users in affiliate dashboard
   - Redesigned statistics cards with responsive grid (2 columns mobile, 4 desktop)
