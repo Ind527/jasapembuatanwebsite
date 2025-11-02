@@ -75,6 +75,8 @@ class AffiliateSystem {
         
         if (refCode) {
             this.recordClick(refCode);
+            // Store ref code in sessionStorage for later use (e.g., when placing order)
+            sessionStorage.setItem('affiliateRef', refCode);
         }
     }
 

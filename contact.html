@@ -425,11 +425,11 @@
             orders.push(orderData);
             localStorage.setItem('orderTrackingData', JSON.stringify(orders));
             
-            // If has affiliate ref, record in affiliate system
+            // If has affiliate ref, record in affiliate system (to correct affiliate, not current user)
             if (affiliateRef) {
                 const affiliateOrders = JSON.parse(localStorage.getItem('affiliateOrders') || '[]');
                 affiliateOrders.push({
-                    refCode: affiliateRef,
+                    refCode: affiliateRef, // This is the REFERRING affiliate's code
                     orderNumber: trackingCode,
                     amount: orderAmount,
                     commission: orderAmount * 0.1,
@@ -438,6 +438,21 @@
                     productType: formData.websiteType
                 });
                 localStorage.setItem('affiliateOrders', JSON.stringify(affiliateOrders));
+                
+                // Also record click if not already done
+                const clicks = JSON.parse(localStorage.getItem('affiliateClicks') || '[]');
+                const hasClick = clicks.some(c => 
+                    c.refCode === affiliateRef && 
+                    new Date(c.timestamp).toDateString() === new Date().toDateString()
+                );
+                if (!hasClick) {
+                    clicks.push({
+                        refCode: affiliateRef,
+                        timestamp: new Date().toISOString(),
+                        page: '/contact.html'
+                    });
+                    localStorage.setItem('affiliateClicks', JSON.stringify(clicks));
+                }
             }
             
             // Simulate form submission
