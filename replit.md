@@ -40,6 +40,15 @@ Static HTML website for SitusKita, a professional web development services compa
 - **Cache Control**: Disabled to ensure latest changes are visible
 
 ## Recent Changes
+- **2025-11-02 (Update 5)**: Sales Registration Form with Firebase Integration
+  - Added sales partner registration form on homepage below hero section
+  - Integrated Firebase Firestore v12.5.0 for data persistence
+  - Form collects: nama, email, nomorHp with timestamp and pending status
+  - Real-time validation and user feedback (loading, success, error states)
+  - Auto-hide success message and form reset after submission
+  - Data stored in "sales" collection in Firebase Firestore
+  - Consistent Tailwind CSS design matching website aesthetic
+
 - **2025-11-02 (Update 4)**: Comprehensive Order Management Enhancements
   - Enhanced dashboard order tables with complete data display (ID, buyer name, email, product, date, status, sales name)
   - Added action column with 4 buttons: View Detail (modal), Change Status (dropdown), Delete Order (with confirmation), Contact Buyer (WhatsApp)
