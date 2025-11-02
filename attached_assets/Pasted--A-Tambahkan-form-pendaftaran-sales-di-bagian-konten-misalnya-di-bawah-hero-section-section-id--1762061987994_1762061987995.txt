@@ -1,0 +1,56 @@
+📍A. Tambahkan form pendaftaran sales di bagian konten (misalnya di bawah hero section)
+<section id="pendaftaran-sales" style="max-width:500px;margin:auto;padding:20px;">
+  <h2>Pendaftaran Sales</h2>
+  <form id="formSales">
+    <input id="nama" placeholder="Nama Sales" required style="width:100%;padding:8px;margin-bottom:10px;" />
+    <input id="email" type="email" placeholder="Email" required style="width:100%;padding:8px;margin-bottom:10px;" />
+    <input id="nomorHp" placeholder="Nomor HP" required style="width:100%;padding:8px;margin-bottom:10px;" />
+    <button type="submit" style="padding:10px 20px;background:#2e7d32;color:white;border:none;cursor:pointer;">
+      Daftar
+    </button>
+  </form>
+  <p id="status" style="margin-top:15px;"></p>
+</section>
+📍B. Tambahkan script Firebase di bagian bawah sebelum </body>
+Tambahkan ini setelah script lain, jangan dihapus script bawaan kamu:
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAyFA3qbciAqUejcsW4aY2l0NV2kcsEisM",
+    authDomain: "situskita-e0624.firebaseapp.com",
+    projectId: "situskita-e0624",
+    storageBucket: "situskita-e0624.firebasestorage.app",
+    messagingSenderId: "405120983997",
+    appId: "1:405120983997:web:66c32242874f77d5dde8d4",
+    measurementId: "G-77WZ6TL891"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function simpanDataSales(nama, email, nomorHp) {
+    const status = document.querySelector("#status");
+    try {
+      await addDoc(collection(db, "sales"), {
+        nama,
+        email,
+        nomorHp,
+        waktuDaftar: new Date().toISOString()
+      });
+      status.innerText = "✅ Data sales berhasil disimpan!";
+    } catch (e) {
+      console.error("Gagal menyimpan data:", e);
+      status.innerText = "❌ Terjadi kesalahan saat menyimpan data.";
+    }
+  }
+
+  document.querySelector("#formSales")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nama = document.querySelector("#nama").value.trim();
+    const email = document.querySelector("#email").value.trim();
+    const nomorHp = document.querySelector("#nomorHp").value.trim();
+    if (nama && email && nomorHp) simpanDataSales(nama, email, nomorHp);
+  });
+</script>
