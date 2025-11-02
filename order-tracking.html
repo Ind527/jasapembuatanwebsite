@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Pesanan | SitusKita</title>
+    <meta name="description" content="Lacak status pesanan website Anda di SitusKita">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+                        'manrope': ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#0EA5E9',
+                        'primary-dark': '#0284C7',
+                        'secondary': '#6366F1',
+                        'text-dark': '#111111',
+                        'text-light': '#64748B',
+                        'bg-light': '#F8F8F8',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .btn-primary { background: #111111; color: white; transition: all 0.3s ease; }
+        .btn-primary:hover { background: #333333; transform: translateY(-2px); }
+        .btn-secondary { background: #0EA5E9; color: white; transition: all 0.3s ease; }
+        .btn-secondary:hover { background: #0284C7; transform: translateY(-2px); }
+        .text-gradient { background: linear-gradient(135deg, #0EA5E9, #6366F1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .timeline-line { position: absolute; left: 1.5rem; top: 3rem; bottom: 0; width: 2px; background: #E5E7EB; }
+        .timeline-dot { position: relative; z-index: 10; }
+    </style>
+</head>
+<body class="font-manrope text-text-dark bg-bg-light">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-jakarta font-bold text-gradient">SitusKita</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-text-light hover:text-primary font-medium transition-colors">Beranda</a>
+                        <a href="about.html" class="text-text-light hover:text-primary font-medium transition-colors">Tentang Kami</a>
+                        <a href="services.html" class="text-text-light hover:text-primary font-medium transition-colors">Layanan</a>
+                        <a href="portfolio.html" class="text-text-light hover:text-primary font-medium transition-colors">Portofolio</a>
+                        <a href="pricing.html" class="text-text-light hover:text-primary font-medium transition-colors">Harga</a>
+                        <a href="affiliate.html" class="text-text-light hover:text-primary font-medium transition-colors">Affiliate</a>
+                        <a href="order-tracking.html" class="text-primary font-medium transition-colors">Tracking</a>
+                        <a href="contact.html" class="btn-primary px-6 py-2 rounded-lg font-medium">Konsultasi Gratis</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-text-dark hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Beranda</a>
+                <a href="about.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Tentang Kami</a>
+                <a href="services.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Layanan</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Portofolio</a>
+                <a href="pricing.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Harga</a>
+                <a href="affiliate.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Affiliate</a>
+                <a href="order-tracking.html" class="block px-3 py-2 text-primary font-medium">Tracking</a>
+                <a href="contact.html" class="block px-3 py-2 btn-primary rounded-lg font-medium text-center mt-4">Konsultasi Gratis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl lg:text-5xl font-jakarta font-bold mb-4">
+                    Tracking <span class="text-gradient">Pesanan</span>
+                </h1>
+                <p class="text-xl text-text-light max-w-2xl mx-auto">
+                    Cek status pesanan website Anda dengan memasukkan nomor order
+                </p>
+            </div>
+
+            <!-- Search Form -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <form id="tracking-form" onsubmit="trackOrder(event)">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="order-number" class="block text-sm font-medium text-text-light mb-2">
+                                Nomor Order
+                            </label>
+                            <input 
+                                type="text" 
+                                id="order-number" 
+                                name="order-number"
+                                placeholder="Contoh: ORD00123" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent uppercase"
+                            >
+                        </div>
+                        <div class="sm:mt-7">
+                            <button type="submit" class="w-full sm:w-auto btn-primary px-8 py-3 rounded-lg font-medium">
+                                <i class="fas fa-search mr-2"></i> Lacak Pesanan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Example Orders -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <p class="text-sm text-text-light mb-3">
+                        <i class="fas fa-lightbulb mr-2"></i>Coba nomor order contoh:
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="quickTrack('ORD00123')" class="text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                            ORD00123
+                        </button>
+                        <button onclick="quickTrack('ORD00124')" class="text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                            ORD00124
+                        </button>
+                        <button onclick="quickTrack('ORD00125')" class="text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                            ORD00125
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="tracking-results" class="hidden">
+                <!-- Order Info -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-jakarta font-bold mb-2">Detail Pesanan</h2>
+                            <p class="text-text-light">Informasi lengkap pesanan Anda</p>
+                        </div>
+                        <div id="order-status-badge" class="px-4 py-2 rounded-full text-sm font-semibold">
+                            Status
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-text-light mb-1">Nomor Order</p>
+                            <p class="font-semibold text-lg" id="display-order-number">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-light mb-1">Nama Customer</p>
+                            <p class="font-semibold" id="display-customer-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-light mb-1">Jenis Produk</p>
+                            <p class="font-semibold" id="display-product-type">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-light mb-1">Tanggal Order</p>
+                            <p class="font-semibold" id="display-order-date">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-light mb-1">Total Pembayaran</p>
+                            <p class="font-semibold text-lg text-primary" id="display-amount">-</p>
+                        </div>
+                        <div id="completion-date-container" class="hidden">
+                            <p class="text-sm text-text-light mb-1">Tanggal Selesai</p>
+                            <p class="font-semibold text-green-600" id="display-completion-date">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h2 class="text-2xl font-jakarta font-bold mb-6">Timeline Progress</h2>
+                    <div id="timeline-container" class="relative pl-12">
+                        <!-- Timeline items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Not Found Message -->
+            <div id="not-found-message" class="hidden bg-white rounded-2xl shadow-lg p-8 text-center">
+                <i class="fas fa-exclamation-circle text-6xl text-yellow-500 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">Pesanan Tidak Ditemukan</h3>
+                <p class="text-text-light mb-6">
+                    Nomor order yang Anda masukkan tidak ditemukan di sistem kami. <br>
+                    Pastikan nomor order yang Anda masukkan sudah benar.
+                </p>
+                <button onclick="resetSearch()" class="btn-secondary px-6 py-2 rounded-lg font-medium">
+                    Coba Lagi
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-text-dark text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 SitusKita. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Load Scripts -->
+    <script src="order-tracking.js"></script>
+    <script src="main.js"></script>
+    
+    <script>
+        function trackOrder(event) {
+            event.preventDefault();
+            
+            const orderNumber = document.getElementById('order-number').value.trim().toUpperCase();
+            const order = orderTrackingSystem.findOrder(orderNumber);
+            
+            if (order) {
+                displayOrderDetails(order);
+            } else {
+                showNotFound();
+            }
+        }
+        
+        function quickTrack(orderNumber) {
+            document.getElementById('order-number').value = orderNumber;
+            const order = orderTrackingSystem.findOrder(orderNumber);
+            if (order) {
+                displayOrderDetails(order);
+            }
+        }
+        
+        function displayOrderDetails(order) {
+            // Hide not found message and show results
+            document.getElementById('not-found-message').classList.add('hidden');
+            document.getElementById('tracking-results').classList.remove('hidden');
+            
+            // Display order info
+            document.getElementById('display-order-number').textContent = order.orderNumber;
+            document.getElementById('display-customer-name').textContent = order.customerName;
+            document.getElementById('display-product-type').textContent = order.productType;
+            document.getElementById('display-order-date').textContent = formatDate(order.orderDate);
+            document.getElementById('display-amount').textContent = formatCurrency(order.amount);
+            
+            // Display completion date if exists
+            if (order.completionDate) {
+                document.getElementById('completion-date-container').classList.remove('hidden');
+                document.getElementById('display-completion-date').textContent = formatDate(order.completionDate);
+            } else {
+                document.getElementById('completion-date-container').classList.add('hidden');
+            }
+            
+            // Display status badge
+            const statusBadge = document.getElementById('order-status-badge');
+            statusBadge.textContent = orderTrackingSystem.getStatusIcon(order.status) + ' ' + order.status;
+            statusBadge.className = 'px-4 py-2 rounded-full text-sm font-semibold ' + orderTrackingSystem.getStatusColor(order.status);
+            
+            // Display timeline
+            displayTimeline(order.timeline);
+            
+            // Scroll to results
+            document.getElementById('tracking-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function displayTimeline(timeline) {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = timeline.map((item, index) => `
+                <div class="mb-8 ${index < timeline.length - 1 ? 'relative' : ''}">
+                    ${index < timeline.length - 1 ? '<div class="timeline-line"></div>' : ''}
+                    <div class="flex items-start">
+                        <div class="timeline-dot flex-shrink-0 w-12 h-12 rounded-full ${orderTrackingSystem.getStatusColor(item.status)} flex items-center justify-center mr-4">
+                            <span class="text-xl">${orderTrackingSystem.getStatusIcon(item.status)}</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-1">
+                                <h4 class="font-bold text-lg">${item.status}</h4>
+                                <span class="text-sm text-text-light">${formatDate(item.date)}</span>
+                            </div>
+                            <p class="text-text-light">${item.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function showNotFound() {
+            document.getElementById('tracking-results').classList.add('hidden');
+            document.getElementById('not-found-message').classList.remove('hidden');
+            document.getElementById('not-found-message').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function resetSearch() {
+            document.getElementById('order-number').value = '';
+            document.getElementById('not-found-message').classList.add('hidden');
+            document.getElementById('tracking-results').classList.add('hidden');
+            document.getElementById('order-number').focus();
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+    </script>
+</body>
+</html>
