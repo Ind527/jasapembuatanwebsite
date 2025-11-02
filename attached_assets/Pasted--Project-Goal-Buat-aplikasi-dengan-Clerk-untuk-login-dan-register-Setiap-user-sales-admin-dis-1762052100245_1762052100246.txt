@@ -1,0 +1,70 @@
+💡 Project Goal:
+Buat aplikasi dengan Clerk untuk login dan register. 
+Setiap user (sales/admin) disimpan di backend API milik saya (Node.js + Express). 
+Gunakan Clerk untuk autentikasi utama dan JWT verification. 
+Gunakan MongoDB atau SQLite untuk menyimpan data tambahan seperti role, nama, dan aktivitas login.
+
+🧩 Tech Stack:
+- Frontend: React + Clerk (SDK)
+- Backend: Express.js (Node.js)
+- Database: MongoDB (mongoose) atau SQLite (pilih yang ringan)
+- Clerk API untuk auth & session verification
+
+🎯 Fitur yang harus dibuat:
+1. Login/Register dengan Clerk (Google, email, dsb)
+2. Setelah login, user dikirim ke backend API `/api/users/sync`
+   → backend memeriksa apakah user sudah ada di database:
+      - Jika belum ada, buat data baru: { clerkId, email, name, role: "sales" }
+      - Jika email admin tertentu, set role: "admin"
+3. Backend memiliki endpoint:
+   - `GET /api/users` → hanya bisa diakses admin (verify Clerk JWT + role check)
+   - `GET /api/profile` → ambil data user sendiri
+   - `PUT /api/users/:id/role` → update role user (admin only)
+4. Clerk session diverifikasi di setiap endpoint backend pakai middleware `clerkClient.verifyToken()`
+5. Simpan role dan data pengguna di database agar bisa dikelola tanpa ubah data Clerk langsung.
+
+🧱 Struktur Folder:
+.
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   └── pages/
+│   │       ├── Login.jsx
+│   │       ├── Dashboard.jsx
+│   │       └── AdminPanel.jsx
+│   └── package.json
+└── backend/
+    ├── server.js
+    ├── routes/
+    │   └── users.js
+    ├── models/
+    │   └── User.js
+    ├── middleware/
+    │   └── auth.js
+    └── package.json
+
+🪪 Contoh skema User.js:
+{
+  clerkId: String,
+  email: String,
+  name: String,
+  role: { type: String, enum: ["sales", "admin"], default: "sales" },
+  createdAt: { type: Date, default: Date.now }
+}
+
+🔐 Middleware auth.js:
+- Verifikasi token Clerk (import { clerkClient } from "@clerk/clerk-sdk-node")
+- Ambil userId dari token
+- Cek role di database untuk otorisasi endpoint admin
+
+⚙️ Tambahkan Environment Variables di Replit:
+CLERK_SECRET_KEY=sk_live_...
+CLERK_PUBLISHABLE_KEY=pk_live_...
+MONGO_URI=mongodb+srv://...
+PORT=5000
+
+✅ Hasil akhir:
+- Login Clerk tetap aman & dikelola otomatis
+- Data user (sales/admin) tersimpan di backend database kamu
+- Admin bisa login dan mengelola user lain
+- Sales hanya bisa lihat data mereka sendiri
