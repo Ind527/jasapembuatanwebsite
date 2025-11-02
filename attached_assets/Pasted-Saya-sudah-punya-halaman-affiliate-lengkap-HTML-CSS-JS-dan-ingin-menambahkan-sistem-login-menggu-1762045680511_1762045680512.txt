@@ -1,0 +1,86 @@
+Saya sudah punya halaman affiliate lengkap (HTML, CSS, JS) dan ingin menambahkan sistem login menggunakan Clerk agar halaman hanya bisa diakses oleh user yang login. Jangan ubah desain halaman saya.
+
+🔧 Tujuan:
+Tambahkan login Clerk berbasis JavaScript (tanpa backend, hanya frontend) untuk dua role:
+- Admin
+- Sales
+
+🔑 Clerk Key:
+Gunakan key berikut di file .env:
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_ZHluYW1pYy10YWhyLTk1LmNsZXJrLmFjY291bnRzLmRldiQ
+
+💡 Struktur Login:
+1. Tambahkan <div id="auth"></div> untuk form login Clerk.
+2. Tambahkan <div id="user-button"></div> di pojok kanan atas untuk tombol user/logout Clerk.
+3. Tambahkan <div id="affiliate-content"></div> yang berisi halaman utama affiliate saya.
+   - Default: affiliate-content disembunyikan.
+   - Setelah login: tampilkan affiliate-content, sembunyikan auth.
+
+📜 main.js
+Gunakan Clerk seperti ini:
+
+import { Clerk } from "@clerk/clerk-js";
+
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const clerk = new Clerk(clerkPubKey);
+await clerk.load();
+
+// Cek status login
+if (clerk.isSignedIn) {
+  document.getElementById("auth").style.display = "none";
+  document.getElementById("affiliate-content").style.display = "block";
+  clerk.mountUserButton(document.getElementById("user-button"));
+
+  // 🔹 Role-based control
+  const userEmail = clerk.user.primaryEmailAddress.emailAddress;
+
+  if (userEmail === "admin@situskita.site") {
+    // Admin dashboard features
+    document.body.classList.add("admin-mode");
+    console.log("Admin logged in");
+
+    // Tampilkan kontrol admin seperti: tambah sales, lihat data, hapus akun
+    // Admin bisa melihat seluruh data referral dan order
+    showAdminPanel();
+
+  } else {
+    // Sales dashboard features
+    document.body.classList.add("sales-mode");
+    console.log("Sales logged in");
+
+    // Tampilkan data affiliate khusus sales
+    showSalesDashboard(userEmail);
+  }
+
+} else {
+  // Jika belum login
+  document.getElementById("affiliate-content").style.display = "none";
+  clerk.mountSignIn(document.getElementById("auth"));
+}
+
+📦 Fitur Admin:
+- Login via email/password (Clerk)
+- Melihat daftar sales (simulasi dari array atau localStorage)
+- Menambah, menonaktifkan, atau menghapus akun sales
+- Melihat statistik klik dan order dari semua sales
+- Logout dengan tombol Clerk
+
+📦 Fitur Sales:
+- Login ke dashboard sendiri
+- Melihat kode referral pribadi
+- Melihat statistik klik dan order dari link-nya
+- Melihat status order (menunggu, dibayar, selesai)
+- Logout dengan tombol Clerk
+
+🎨 Desain & Warna:
+- Gunakan warna utama website saya: 
+  - Aksen biru: #0EA5E9
+  - Teks: #111111
+  - Tombol: hitam solid dengan teks putih
+- Font: "Poppins" untuk heading, "Inter" untuk body
+- Pastikan login Clerk dan tombol user responsive di HP & desktop.
+
+⚙️ Catatan Teknis:
+- Jangan ubah struktur halaman saya, cukup tambahkan login & role system.
+- Pastikan Clerk login muncul otomatis di mobile & desktop.
+- Gunakan JavaScript murni (tanpa backend, tanpa framework tambahan).
