@@ -1,0 +1,141 @@
+💡 Tujuan:
+Saya sudah punya fitur login/register dengan Clerk. Sekarang saya ingin agar setiap user yang login atau register otomatis disimpan ke backend (Express.js) di Replit. Backend ini juga menyimpan role (sales atau admin).
+
+🧩 Stack yang digunakan:
+- Frontend: React + Clerk
+- Backend: Node.js + Express.js
+- Database: MongoDB (Mongoose)
+- Clerk SDK untuk verifikasi token
+
+🎯 Fitur yang harus dibuat:
+1. Endpoint POST /api/users/sync
+   - Menerima data dari frontend setelah user login via Clerk
+   - Menyimpan atau memperbarui data user di database MongoDB
+   - Data disimpan: clerkId, email, name, role, createdAt
+
+2. Middleware autentikasi `verifyClerkToken`
+   - Verifikasi token dari Clerk sebelum izinkan simpan data
+
+3. Role “admin” diberikan otomatis untuk email `sultancisoka@gmail.com`
+   - Selain itu dianggap “sales”
+
+4. Backend menyimpan user di MongoDB (gunakan variabel MONGO_URI dari Secrets)
+
+🪪 Environment Variables:
+CLERK_SECRET_KEY=sk_live_xxx
+MONGO_URI=mongodb+srv://...
+PORT=5000
+
+🧱 Struktur Folder:
+.
+├── server.js
+├── models/
+│   └── User.js
+├── routes/
+│   └── users.js
+└── middleware/
+    └── auth.js
+
+📄 Isi file:
+
+👉 models/User.js
+```js
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  clerkId: String,
+  email: String,
+  name: String,
+  role: { type: String, enum: ["sales", "admin"], default: "sales" },
+  createdAt: { type: Date, default: Date.now },
+});
+
+module.exports = mongoose.model("User", userSchema);
+👉 middleware/auth.js
+import { getAuth } from "@clerk/clerk-sdk-node";
+
+export const verifyClerkToken = async (req, res, next) => {
+  try {
+    const auth = getAuth(req);
+    if (!auth || !auth.userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    req.userId = auth.userId;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+  }
+};
+👉 routes/users.js
+const express = require("express");
+const router = express.Router();
+const User = require("../models/User");
+
+router.post("/sync", async (req, res) => {
+  try {
+    const { clerkId, email, name } = req.body;
+
+    const role = email === "sultancisoka@gmail.com" ? "admin" : "sales";
+
+    let user = await User.findOne({ clerkId });
+    if (!user) {
+      user = new User({ clerkId, email, name, role });
+      await user.save();
+    } else {
+      user.email = email;
+      user.name = name;
+      user.role = role;
+      await user.save();
+    }
+
+    res.json({ message: "User synced", user });
+  } catch (error) {
+    res.status(500).json({ message: "Error syncing user", error });
+  }
+});
+
+module.exports = router;
+👉 server.js
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const usersRoute = require("./routes/users");
+
+const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("MongoDB Error:", err));
+
+app.use("/api/users", usersRoute);
+
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`🚀 Server running on port ${process.env.PORT || 5000}`);
+});
+👉 frontend (React) – tambahkan di useEffect setelah user login:
+import { useUser } from "@clerk/clerk-react";
+import { useEffect } from "react";
+
+function SyncUser() {
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      fetch("https://your-backend-url/api/users/sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clerkId: user.id,
+          email: user.primaryEmailAddress.emailAddress,
+          name: user.fullName,
+        }),
+      });
+    }
+  }, [user]);
+}
+
+export default SyncUser;
