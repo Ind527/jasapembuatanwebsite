@@ -1,0 +1,12 @@
+{
+  "name": "situskita-website",
+  "version": "1.0.0",
+  "description": "SitusKita - Professional web development services website with Clerk authentication and affiliate system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["website", "affiliate", "clerk", "static"],
+  "author": "",
+  "license": "ISC"
+}
