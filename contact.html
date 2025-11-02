@@ -364,9 +364,31 @@
             `;
             submitBtn.disabled = true;
             
+            // Capture form data
+            const formData = {
+                name: form.querySelector('[name="name"]')?.value || '',
+                email: form.querySelector('[name="email"]')?.value || '',
+                phone: form.querySelector('[name="phone"]')?.value || '',
+                service: form.querySelector('[name="service"]')?.value || '',
+                message: form.querySelector('[name="message"]')?.value || ''
+            };
+            
+            // Check for affiliate ref and create order
+            if (typeof window.createAffiliateOrder === 'function') {
+                const order = window.createAffiliateOrder(formData);
+                if (order) {
+                    console.log('Affiliate order created:', order);
+                }
+            }
+            
             // Simulate form submission
             setTimeout(() => {
-                alert('Terima kasih! Konsultasi Anda telah terkirim. Kami akan hubungi Anda dalam 24 jam.');
+                const affiliateRef = sessionStorage.getItem('affiliateRef');
+                let message = 'Terima kasih! Konsultasi Anda telah terkirim. Kami akan hubungi Anda dalam 24 jam.';
+                if (affiliateRef) {
+                    message += `\n\nPesanan Anda juga telah tercatat untuk affiliate ${affiliateRef}.`;
+                }
+                alert(message);
                 form.reset();
                 
                 // Reset button
@@ -395,6 +417,8 @@
         });
     </script>
 
+    <script src="dashboard.js"></script>
+    <script src="affiliate-tracker.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+Perbarui proyek website agar memiliki sistem login berbasis Clerk (tanpa backend).
+Gunakan deteksi role berbasis email:
+- Akun admin: sultancisoka@gmail.com → diarahkan ke halaman dashboard admin.
+- Akun selain itu → diarahkan ke halaman dashboard sales.
+
+🔒 FITUR LOGIN:
+- Gunakan Clerk login (Google/email).
+- Setelah login:
+  - Jika admin, tampilkan dashboard admin.
+  - Jika sales, tampilkan dashboard sales.
+- Dashboard disesuaikan agar responsive di HP & desktop (tidak terlalu besar).
+
+👑 FITUR ADMIN:
+- Melihat daftar semua akun sales (nama, email, kode affiliate, total penjualan, komisi).
+- Dapat melihat dan memfilter pesanan berdasarkan tanggal & bulan.
+- Dapat melihat semua pesanan yang masuk dari semua sales.
+- Dapat melihat dan mengatur komisi sales (edit persentase).
+- Dapat melihat statistik: total sales, total komisi dibayar, total buyer, total pesanan.
+
+💼 FITUR SALES:
+- Melihat laporan penjualan pribadi berdasarkan tanggal & bulan.
+- Memiliki kode affiliate unik otomatis (contoh: AFF8188, AFF3012, dll).
+- Link afiliasi otomatis dalam format:
+  https://www.situskita.site/?ref=KODE_AFFILIATE
+- Jika link dikunjungi (misalnya ?ref=AFF8188), tampilkan halaman produk atau formulir kontak
+  dengan desain mengikuti halaman kontak utama situs (https://www.situskita.site).
+- Jika form dikirim dari link tersebut, pesanan langsung tercatat di akun sales & admin
+   Clerk metadata api
+
+📄 FITUR PESANAN:
+- Pesanan baru yang masuk melalui form ref=AFFXXXX akan muncul otomatis di dashboard admin & sales terkait.
+- Tampilkan data pesanan: nama, email, produk, tanggal, status, dan total.
+- Admin bisa ubah status pesanan (pending, dikirim, selesai).
+- Sales bisa lihat status pesanan miliknya saja.
+
+🧠 TEKNIS:
+- Clerk metadata api
+- Simpan data(sales, pesanan, komisi) menggunakan Clerk metadata API.
+- Desain dashboard admin & sales dibuat ringkas, grid-card layout dengan warna netral (abu-putih-hijau muda).
+- Gunakan font yang sama dengan situs utama https://www.situskita.site agar serasi.
+- Pastikan tampilan mobile rapi dan tidak memenuhi layar.
+- Kode affiliate dibuat otomatis saat user baru pertama login.
+
+🎨 TAMBAHAN:
+- Desain form kontak pada halaman ref affiliate (/?ref=AFFxxxx) disesuaikan dengan desain halaman kontak utama situs.
+- Gunakan responsive form agar tampak profesional di HP.
+
+Tujuan akhir:
+Website memiliki sistem login Clerk yang membedakan role admin dan sales,
+memiliki dashboard masing-masing dengan fitur pengelolaan afiliasi, laporan penjualan,
+pesanan masuk, dan filter tanggal/bulan, semuanya tanpa backend.
