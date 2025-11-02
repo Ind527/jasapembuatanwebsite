@@ -34,6 +34,7 @@ window.addEventListener('load', async function () {
         const authDiv = document.getElementById('auth');
         const contentDiv = document.getElementById('affiliate-content');
         const userButtonDiv = document.getElementById('user-button');
+        const mobileUserButtonDiv = document.getElementById('mobile-user-button');
         
         // Check if user is signed in
         if (window.Clerk.user) {
@@ -44,9 +45,16 @@ window.addEventListener('load', async function () {
             if (authDiv) authDiv.style.display = 'none';
             if (contentDiv) contentDiv.style.display = 'block';
             
-            // Mount user button for logout
+            // Mount user button for logout (desktop)
             if (userButtonDiv) {
                 window.Clerk.mountUserButton(userButtonDiv, {
+                    afterSignOutUrl: window.location.href
+                });
+            }
+            
+            // Mount user button for logout (mobile/tablet)
+            if (mobileUserButtonDiv) {
+                window.Clerk.mountUserButton(mobileUserButtonDiv, {
                     afterSignOutUrl: window.location.href
                 });
             }

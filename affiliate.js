@@ -126,13 +126,14 @@ class AffiliateSystem {
 
     getOrderStats() {
         const data = this.getAffiliateData();
-        if (!data) return { total: 0, totalCommission: 0, orders: [] };
+        if (!data) return { total: 0, totalRevenue: 0, totalCommission: 0, orders: [] };
         
         const orders = JSON.parse(localStorage.getItem(this.ordersKey) || '[]');
         const myOrders = orders.filter(o => o.refCode === data.code);
         
         return {
             total: myOrders.length,
+            totalRevenue: myOrders.reduce((sum, o) => sum + o.amount, 0),
             totalCommission: myOrders.reduce((sum, o) => sum + o.commission, 0),
             orders: myOrders
         };

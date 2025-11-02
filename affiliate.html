@@ -96,6 +96,8 @@
                 <a href="affiliate.html" class="block px-3 py-2 text-primary font-medium">Affiliate</a>
                 <a href="order-tracking.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Tracking</a>
                 <a href="contact.html" class="block px-3 py-2 btn-primary rounded-lg font-medium text-center mt-4">Konsultasi Gratis</a>
+                <!-- Mobile User Button (for logout) -->
+                <div id="mobile-user-button" class="px-3 py-2"></div>
             </div>
         </div>
     </nav>
@@ -159,53 +161,53 @@
             </div>
 
             <!-- Statistics Cards -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8">
                 <!-- Total Clicks -->
-                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-blue-100 p-3 rounded-lg">
-                            <i class="fas fa-mouse-pointer text-2xl text-blue-600"></i>
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 card-hover">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 sm:mb-4">
+                        <div class="bg-blue-100 p-2 sm:p-3 rounded-lg mb-2 sm:mb-0">
+                            <i class="fas fa-mouse-pointer text-xl sm:text-2xl text-blue-600"></i>
                         </div>
-                        <span class="text-sm text-text-light">Total</span>
+                        <span class="text-xs sm:text-sm text-text-light">Total</span>
                     </div>
-                    <h3 class="text-3xl font-bold mb-2" id="total-clicks">0</h3>
-                    <p class="text-text-light">Total Klik</p>
-                </div>
-
-                <!-- Clicks This Month -->
-                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-purple-100 p-3 rounded-lg">
-                            <i class="fas fa-calendar-alt text-2xl text-purple-600"></i>
-                        </div>
-                        <span class="text-sm text-text-light">30 Hari</span>
-                    </div>
-                    <h3 class="text-3xl font-bold mb-2" id="month-clicks">0</h3>
-                    <p class="text-text-light">Klik Bulan Ini</p>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2" id="total-clicks">0</h3>
+                    <p class="text-xs sm:text-base text-text-light">Total Klik</p>
                 </div>
 
                 <!-- Total Orders -->
-                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-green-100 p-3 rounded-lg">
-                            <i class="fas fa-shopping-cart text-2xl text-green-600"></i>
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 card-hover">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 sm:mb-4">
+                        <div class="bg-green-100 p-2 sm:p-3 rounded-lg mb-2 sm:mb-0">
+                            <i class="fas fa-shopping-cart text-xl sm:text-2xl text-green-600"></i>
                         </div>
-                        <span class="text-sm text-text-light">Sukses</span>
+                        <span class="text-xs sm:text-sm text-text-light">Sukses</span>
                     </div>
-                    <h3 class="text-3xl font-bold mb-2" id="total-orders">0</h3>
-                    <p class="text-text-light">Total Order</p>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2" id="total-orders">0</h3>
+                    <p class="text-xs sm:text-base text-text-light">Total Order</p>
+                </div>
+
+                <!-- Total Revenue -->
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 card-hover">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 sm:mb-4">
+                        <div class="bg-purple-100 p-2 sm:p-3 rounded-lg mb-2 sm:mb-0">
+                            <i class="fas fa-wallet text-xl sm:text-2xl text-purple-600"></i>
+                        </div>
+                        <span class="text-xs sm:text-sm text-text-light">Revenue</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-1 sm:mb-2" id="total-revenue">Rp 0</h3>
+                    <p class="text-xs sm:text-base text-text-light">Total Revenue</p>
                 </div>
 
                 <!-- Total Commission -->
-                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-yellow-100 p-3 rounded-lg">
-                            <i class="fas fa-money-bill-wave text-2xl text-yellow-600"></i>
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 card-hover">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 sm:mb-4">
+                        <div class="bg-yellow-100 p-2 sm:p-3 rounded-lg mb-2 sm:mb-0">
+                            <i class="fas fa-money-bill-wave text-xl sm:text-2xl text-yellow-600"></i>
                         </div>
-                        <span class="text-sm text-text-light">Komisi</span>
+                        <span class="text-xs sm:text-sm text-text-light">10%</span>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2" id="total-commission">Rp 0</h3>
-                    <p class="text-text-light">Total Komisi</p>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-1 sm:mb-2" id="total-commission">Rp 0</h3>
+                    <p class="text-xs sm:text-base text-text-light">Komisi (10%)</p>
                 </div>
             </div>
 
@@ -285,13 +287,15 @@
             
             if (affiliateData) {
                 document.getElementById('affiliate-code').value = affiliateData.code;
-                document.getElementById('referral-link').value = affiliateSystem.getReferralLink();
+                // Update referral link to point to contact page
+                const referralLink = `${window.location.origin}/contact.html?ref=${affiliateData.code}`;
+                document.getElementById('referral-link').value = referralLink;
             }
             
             // Display statistics
             document.getElementById('total-clicks').textContent = clickStats.total;
-            document.getElementById('month-clicks').textContent = clickStats.thisMonth;
             document.getElementById('total-orders').textContent = orderStats.total;
+            document.getElementById('total-revenue').textContent = formatCurrency(orderStats.totalRevenue || 0);
             document.getElementById('total-commission').textContent = formatCurrency(orderStats.totalCommission);
             
             // Display orders

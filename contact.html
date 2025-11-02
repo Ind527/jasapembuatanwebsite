@@ -348,6 +348,13 @@
             offset: 100
         });
 
+        // Check for affiliate referral code in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+        if (refCode) {
+            sessionStorage.setItem('affiliateRef', refCode);
+        }
+
         // Form handling
         const form = document.getElementById('consultation-form');
         const submitBtn = document.getElementById('submit-btn');
@@ -369,26 +376,74 @@
                 name: form.querySelector('[name="name"]')?.value || '',
                 email: form.querySelector('[name="email"]')?.value || '',
                 phone: form.querySelector('[name="phone"]')?.value || '',
-                service: form.querySelector('[name="service"]')?.value || '',
+                company: form.querySelector('[name="company"]')?.value || '',
+                websiteType: form.querySelector('[name="website-type"]')?.value || '',
+                budget: form.querySelector('[name="budget"]')?.value || '',
                 message: form.querySelector('[name="message"]')?.value || ''
             };
             
-            // Check for affiliate ref and create order
-            if (typeof window.createAffiliateOrder === 'function') {
-                const order = window.createAffiliateOrder(formData);
-                if (order) {
-                    console.log('Affiliate order created:', order);
-                }
+            // Generate tracking code
+            const trackingCode = generateTrackingCode();
+            
+            // Get affiliate ref
+            const affiliateRef = sessionStorage.getItem('affiliateRef');
+            
+            // Determine order amount based on budget
+            let orderAmount = 0;
+            if (formData.budget === '1-3jt') orderAmount = 2000000;
+            else if (formData.budget === '3-5jt') orderAmount = 4000000;
+            else if (formData.budget === '5-10jt') orderAmount = 7500000;
+            else if (formData.budget === '10jt+') orderAmount = 12000000;
+            else orderAmount = 3000000; // Default
+            
+            // Create order in tracking system
+            const orderData = {
+                orderNumber: trackingCode,
+                customerName: formData.name,
+                customerEmail: formData.email,
+                customerPhone: formData.phone,
+                company: formData.company,
+                productType: formData.websiteType || 'Custom Website',
+                status: 'Diproses',
+                orderDate: new Date().toISOString().split('T')[0],
+                completionDate: null,
+                amount: orderAmount,
+                budget: formData.budget,
+                message: formData.message,
+                affiliateRef: affiliateRef || null,
+                timeline: [
+                    { 
+                        status: 'Diproses', 
+                        date: new Date().toISOString().split('T')[0], 
+                        description: 'Pesanan konsultasi diterima dan sedang diverifikasi' 
+                    }
+                ]
+            };
+            
+            // Save to localStorage
+            const orders = JSON.parse(localStorage.getItem('orderTrackingData') || '[]');
+            orders.push(orderData);
+            localStorage.setItem('orderTrackingData', JSON.stringify(orders));
+            
+            // If has affiliate ref, record in affiliate system
+            if (affiliateRef) {
+                const affiliateOrders = JSON.parse(localStorage.getItem('affiliateOrders') || '[]');
+                affiliateOrders.push({
+                    refCode: affiliateRef,
+                    orderNumber: trackingCode,
+                    amount: orderAmount,
+                    commission: orderAmount * 0.1,
+                    timestamp: new Date().toISOString(),
+                    customerName: formData.name,
+                    productType: formData.websiteType
+                });
+                localStorage.setItem('affiliateOrders', JSON.stringify(affiliateOrders));
             }
             
             // Simulate form submission
             setTimeout(() => {
-                const affiliateRef = sessionStorage.getItem('affiliateRef');
-                let message = 'Terima kasih! Konsultasi Anda telah terkirim. Kami akan hubungi Anda dalam 24 jam.';
-                if (affiliateRef) {
-                    message += `\n\nPesanan Anda juga telah tercatat untuk affiliate ${affiliateRef}.`;
-                }
-                alert(message);
+                // Show success modal with tracking code
+                showSuccessModal(trackingCode, affiliateRef);
                 form.reset();
                 
                 // Reset button
@@ -399,8 +454,79 @@
                     Kirim Konsultasi
                 `;
                 submitBtn.disabled = false;
+                
+                // Clear affiliate ref from session
+                sessionStorage.removeItem('affiliateRef');
             }, 2000);
         });
+        
+        // Generate tracking code
+        function generateTrackingCode() {
+            const prefix = 'ORD';
+            const timestamp = Date.now().toString().slice(-5);
+            const random = Math.floor(100 + Math.random() * 900);
+            return prefix + timestamp + random;
+        }
+        
+        // Show success modal
+        function showSuccessModal(trackingCode, affiliateRef) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-fade-in">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-jakarta font-bold mb-4">Konsultasi Terkirim!</h2>
+                    <p class="text-text-light mb-6">
+                        Terima kasih! Konsultasi Anda telah diterima. Tim kami akan menghubungi Anda dalam 24 jam.
+                    </p>
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl mb-6">
+                        <p class="text-sm text-text-light mb-2">Kode Tracking Pesanan Anda</p>
+                        <p class="text-2xl font-mono font-bold text-primary mb-4">${trackingCode}</p>
+                        <button onclick="copyTrackingCode('${trackingCode}')" 
+                            class="btn-secondary px-4 py-2 rounded-lg font-medium text-sm">
+                            <i class="fas fa-copy mr-2"></i> Salin Kode
+                        </button>
+                        <p class="text-xs text-text-light mt-3">
+                            Gunakan kode ini untuk melacak status pesanan Anda di halaman 
+                            <a href="order-tracking.html" class="text-primary hover:underline">Tracking</a>
+                        </p>
+                    </div>
+                    ${affiliateRef ? `
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                            <p class="text-sm text-yellow-800">
+                                <i class="fas fa-star mr-2"></i>
+                                Pesanan ini menggunakan kode referral <strong>${affiliateRef}</strong>
+                            </p>
+                        </div>
+                    ` : ''}
+                    <button onclick="this.closest('.fixed').remove()" 
+                        class="btn-primary px-6 py-3 rounded-lg font-medium w-full">
+                        Tutup
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // Copy tracking code
+        function copyTrackingCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification('Kode tracking berhasil disalin!');
+            });
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
