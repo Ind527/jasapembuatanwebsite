@@ -20,6 +20,9 @@ const DashboardSystem = {
                 commissionRate: 10 // Default 10%
             };
             this.saveUserData(userId, userData);
+            console.log('New user initialized:', userEmail, 'with code:', affCode);
+        } else {
+            console.log('Existing user loaded:', userEmail, 'with code:', userData.affiliateCode);
         }
         
         return userData;
@@ -74,9 +77,10 @@ const DashboardSystem = {
         clicks.push({
             code: affiliateCode,
             timestamp: new Date().toISOString(),
-            id: 'click_' + Date.now()
+            id: 'click_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
         });
         localStorage.setItem('affiliateClicks', JSON.stringify(clicks));
+        console.log('Click recorded for:', affiliateCode);
     },
     
     // Get clicks for affiliate

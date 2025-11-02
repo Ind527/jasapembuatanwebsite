@@ -31,15 +31,15 @@ function renderAdminPanel() {
     
     // Admin Header
     const adminHeader = document.createElement('div');
-    adminHeader.className = 'bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl shadow-lg p-8 text-white mb-8';
+    adminHeader.className = 'bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl md:rounded-2xl shadow-lg p-4 md:p-8 text-white mb-6 md:mb-8';
     adminHeader.innerHTML = `
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
             <div>
-                <h2 class="text-3xl font-jakarta font-bold mb-2">Panel Admin</h2>
-                <p class="text-sm opacity-90">Kelola sales team dan statistik affiliate</p>
+                <h2 class="text-2xl md:text-3xl font-jakarta font-bold mb-1 md:mb-2">Panel Admin</h2>
+                <p class="text-xs md:text-sm opacity-90">Kelola sales team dan statistik affiliate</p>
             </div>
-            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
-                <i class="fas fa-crown text-yellow-300 mr-2"></i>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-3 md:px-4 py-1.5 md:py-2 text-sm md:text-base">
+                <i class="fas fa-crown text-yellow-300 mr-1 md:mr-2"></i>
                 <span class="font-semibold">Administrator</span>
             </div>
         </div>
@@ -48,23 +48,25 @@ function renderAdminPanel() {
     
     // Date Filter
     const dateFilter = document.createElement('div');
-    dateFilter.className = 'bg-white rounded-2xl shadow-lg p-6 mb-8';
+    dateFilter.className = 'bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 mb-6 md:mb-8';
     dateFilter.innerHTML = `
-        <div class="flex flex-col md:flex-row gap-4 items-end">
+        <div class="flex flex-col md:flex-row gap-3 md:gap-4 items-stretch md:items-end">
             <div class="flex-1">
-                <label class="block text-sm font-medium text-text-light mb-2">Tanggal Mulai</label>
-                <input type="date" id="admin-start-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <label class="block text-xs md:text-sm font-medium text-text-light mb-1 md:mb-2">Tanggal Mulai</label>
+                <input type="date" id="admin-start-date" class="w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div class="flex-1">
-                <label class="block text-sm font-medium text-text-light mb-2">Tanggal Akhir</label>
-                <input type="date" id="admin-end-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <label class="block text-xs md:text-sm font-medium text-text-light mb-1 md:mb-2">Tanggal Akhir</label>
+                <input type="date" id="admin-end-date" class="w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
-            <button onclick="applyAdminFilter()" class="btn-primary px-6 py-2 rounded-lg font-medium whitespace-nowrap">
-                <i class="fas fa-filter mr-2"></i>Filter
-            </button>
-            <button onclick="clearAdminFilter()" class="bg-gray-200 text-text-dark px-6 py-2 rounded-lg font-medium hover:bg-gray-300 whitespace-nowrap">
-                <i class="fas fa-times mr-2"></i>Reset
-            </button>
+            <div class="flex gap-2 md:gap-4">
+                <button onclick="applyAdminFilter()" class="flex-1 md:flex-none btn-primary px-4 md:px-6 py-2 rounded-lg font-medium whitespace-nowrap text-sm md:text-base">
+                    <i class="fas fa-filter mr-1 md:mr-2"></i>Filter
+                </button>
+                <button onclick="clearAdminFilter()" class="flex-1 md:flex-none bg-gray-200 text-text-dark px-4 md:px-6 py-2 rounded-lg font-medium hover:bg-gray-300 whitespace-nowrap text-sm md:text-base">
+                    <i class="fas fa-times mr-1 md:mr-2"></i>Reset
+                </button>
+            </div>
         </div>
     `;
     mainContent.appendChild(dateFilter);
@@ -72,6 +74,7 @@ function renderAdminPanel() {
     // Statistics Cards
     const statsCards = document.createElement('div');
     statsCards.id = 'admin-stats';
+    statsCards.className = 'mb-8';
     mainContent.appendChild(statsCards);
     
     // Sales Management
@@ -103,30 +106,30 @@ function loadAdminData(startDate = null, endDate = null) {
     const stats = DashboardSystem.getAdminStats(startDate, endDate);
     
     const statsHTML = `
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 md:p-6">
-                <div class="text-xs md:text-sm text-text-light mb-2">Total Sales</div>
-                <div class="text-2xl md:text-3xl font-bold text-blue-600">${stats.totalSales}</div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg md:rounded-xl p-3 md:p-6">
+                <div class="text-xs md:text-sm text-text-light mb-1 md:mb-2">Total Sales</div>
+                <div class="text-xl md:text-3xl font-bold text-blue-600">${stats.totalSales}</div>
             </div>
-            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 md:p-6">
-                <div class="text-xs md:text-sm text-text-light mb-2">Total Klik</div>
-                <div class="text-2xl md:text-3xl font-bold text-purple-600">${stats.totalClicks}</div>
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg md:rounded-xl p-3 md:p-6">
+                <div class="text-xs md:text-sm text-text-light mb-1 md:mb-2">Total Klik</div>
+                <div class="text-xl md:text-3xl font-bold text-purple-600">${stats.totalClicks}</div>
             </div>
-            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 md:p-6">
-                <div class="text-xs md:text-sm text-text-light mb-2">Total Order</div>
-                <div class="text-2xl md:text-3xl font-bold text-green-600">${stats.totalOrders}</div>
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg md:rounded-xl p-3 md:p-6">
+                <div class="text-xs md:text-sm text-text-light mb-1 md:mb-2">Total Order</div>
+                <div class="text-xl md:text-3xl font-bold text-green-600">${stats.totalOrders}</div>
             </div>
-            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 md:p-6">
-                <div class="text-xs md:text-sm text-text-light mb-2">Total Buyer</div>
-                <div class="text-2xl md:text-3xl font-bold text-yellow-600">${stats.uniqueBuyers}</div>
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg md:rounded-xl p-3 md:p-6">
+                <div class="text-xs md:text-sm text-text-light mb-1 md:mb-2">Total Buyer</div>
+                <div class="text-xl md:text-3xl font-bold text-yellow-600">${stats.uniqueBuyers}</div>
             </div>
-            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 md:p-6">
-                <div class="text-xs md:text-sm text-text-light mb-2">Total Revenue</div>
-                <div class="text-lg md:text-xl font-bold text-red-600">${formatCurrency(stats.totalRevenue)}</div>
+            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg md:rounded-xl p-3 md:p-6">
+                <div class="text-xs md:text-sm text-text-light mb-1 md:mb-2">Total Revenue</div>
+                <div class="text-sm md:text-xl font-bold text-red-600 truncate">${formatCurrency(stats.totalRevenue)}</div>
             </div>
-            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4 md:p-6">
-                <div class="text-xs md:text-sm text-text-light mb-2">Total Komisi</div>
-                <div class="text-lg md:text-xl font-bold text-indigo-600">${formatCurrency(stats.totalCommission)}</div>
+            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg md:rounded-xl p-3 md:p-6">
+                <div class="text-xs md:text-sm text-text-light mb-1 md:mb-2">Total Komisi</div>
+                <div class="text-sm md:text-xl font-bold text-indigo-600 truncate">${formatCurrency(stats.totalCommission)}</div>
             </div>
         </div>
     `;

@@ -33,57 +33,59 @@ function renderSalesDashboard(userData) {
     
     // Date Filter
     const dateFilter = document.createElement('div');
-    dateFilter.className = 'bg-white rounded-2xl shadow-lg p-6 mb-8';
+    dateFilter.className = 'bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 mb-6 md:mb-8';
     dateFilter.innerHTML = `
-        <div class="flex flex-col md:flex-row gap-4 items-end">
+        <div class="flex flex-col md:flex-row gap-3 md:gap-4 items-stretch md:items-end">
             <div class="flex-1">
-                <label class="block text-sm font-medium text-text-light mb-2">Tanggal Mulai</label>
-                <input type="date" id="sales-start-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <label class="block text-xs md:text-sm font-medium text-text-light mb-1 md:mb-2">Tanggal Mulai</label>
+                <input type="date" id="sales-start-date" class="w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div class="flex-1">
-                <label class="block text-sm font-medium text-text-light mb-2">Tanggal Akhir</label>
-                <input type="date" id="sales-end-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <label class="block text-xs md:text-sm font-medium text-text-light mb-1 md:mb-2">Tanggal Akhir</label>
+                <input type="date" id="sales-end-date" class="w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
-            <button onclick="applySalesFilter('${userData.affiliateCode}')" class="btn-primary px-6 py-2 rounded-lg font-medium whitespace-nowrap">
-                <i class="fas fa-filter mr-2"></i>Filter
-            </button>
-            <button onclick="clearSalesFilter('${userData.affiliateCode}')" class="bg-gray-200 text-text-dark px-6 py-2 rounded-lg font-medium hover:bg-gray-300 whitespace-nowrap">
-                <i class="fas fa-times mr-2"></i>Reset
-            </button>
+            <div class="flex gap-2 md:gap-4">
+                <button onclick="applySalesFilter('${userData.affiliateCode}')" class="flex-1 md:flex-none btn-primary px-4 md:px-6 py-2 rounded-lg font-medium whitespace-nowrap text-sm md:text-base">
+                    <i class="fas fa-filter mr-1 md:mr-2"></i>Filter
+                </button>
+                <button onclick="clearSalesFilter('${userData.affiliateCode}')" class="flex-1 md:flex-none bg-gray-200 text-text-dark px-4 md:px-6 py-2 rounded-lg font-medium hover:bg-gray-300 whitespace-nowrap text-sm md:text-base">
+                    <i class="fas fa-times mr-1 md:mr-2"></i>Reset
+                </button>
+            </div>
         </div>
     `;
     mainContent.appendChild(dateFilter);
     
     // Referral Link Section
     const referralSection = document.createElement('div');
-    referralSection.className = 'bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8';
+    referralSection.className = 'bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-8 mb-6 md:mb-8';
     const referralLink = `${window.location.origin}/?ref=${userData.affiliateCode}`;
     referralSection.innerHTML = `
-        <h2 class="text-2xl font-jakarta font-bold mb-6">Link Referral Anda</h2>
-        <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 md:p-6 rounded-xl mb-4">
-            <label class="block text-sm font-medium text-text-light mb-2">Kode Affiliate Anda</label>
-            <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 mb-4">
+        <h2 class="text-xl md:text-2xl font-jakarta font-bold mb-4 md:mb-6">Link Referral Anda</h2>
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-3 md:p-6 rounded-lg md:rounded-xl mb-3 md:mb-4">
+            <label class="block text-xs md:text-sm font-medium text-text-light mb-1 md:mb-2">Kode Affiliate Anda</label>
+            <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-4 mb-3 md:mb-4">
                 <input type="text" id="affiliate-code" readonly value="${userData.affiliateCode}"
-                    class="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg font-mono text-lg font-semibold">
+                    class="flex-1 px-3 md:px-4 py-2 md:py-3 bg-white border border-gray-300 rounded-lg font-mono text-base md:text-lg font-semibold">
                 <button onclick="copyToClipboard('affiliate-code', 'Kode affiliate berhasil disalin!')" 
-                    class="btn-secondary px-6 py-3 rounded-lg font-medium whitespace-nowrap">
-                    <i class="fas fa-copy mr-2"></i> Salin Kode
+                    class="btn-secondary px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium whitespace-nowrap text-sm md:text-base">
+                    <i class="fas fa-copy mr-1 md:mr-2"></i> Salin Kode
                 </button>
             </div>
             
-            <label class="block text-sm font-medium text-text-light mb-2 mt-6">Link Referral Lengkap</label>
-            <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4">
+            <label class="block text-xs md:text-sm font-medium text-text-light mb-1 md:mb-2 mt-4 md:mt-6">Link Referral Lengkap</label>
+            <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-4">
                 <input type="text" id="referral-link" readonly value="${referralLink}"
-                    class="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm">
+                    class="flex-1 px-3 md:px-4 py-2 md:py-3 bg-white border border-gray-300 rounded-lg text-xs md:text-sm break-all">
                 <button onclick="copyToClipboard('referral-link', 'Link referral berhasil disalin!')" 
-                    class="btn-primary px-6 py-3 rounded-lg font-medium whitespace-nowrap">
-                    <i class="fas fa-link mr-2"></i> Salin Link
+                    class="btn-primary px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium whitespace-nowrap text-sm md:text-base">
+                    <i class="fas fa-link mr-1 md:mr-2"></i> Salin Link
                 </button>
             </div>
         </div>
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p class="text-sm text-blue-800">
-                <i class="fas fa-info-circle mr-2"></i>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 md:p-4">
+            <p class="text-xs md:text-sm text-blue-800">
+                <i class="fas fa-info-circle mr-1 md:mr-2"></i>
                 Bagikan link referral Anda ke teman, keluarga, atau media sosial. Anda akan mendapatkan komisi ${userData.commissionRate}% dari setiap pembelian yang menggunakan link Anda!
             </p>
         </div>
@@ -104,36 +106,6 @@ function renderSalesDashboard(userData) {
     `;
     mainContent.appendChild(ordersContainer);
     
-    // How It Works
-    const howItWorks = document.createElement('div');
-    howItWorks.className = 'bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-lg p-6 md:p-8 text-white';
-    howItWorks.innerHTML = `
-        <h2 class="text-2xl font-jakarta font-bold mb-6 text-center">Cara Kerja Program Affiliate</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="text-center">
-                <div class="bg-white/20 backdrop-blur-sm rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <span class="text-3xl font-bold">1</span>
-                </div>
-                <h3 class="font-bold mb-2">Bagikan Link</h3>
-                <p class="text-sm opacity-90">Salin dan bagikan link referral Anda ke teman, keluarga, atau media sosial</p>
-            </div>
-            <div class="text-center">
-                <div class="bg-white/20 backdrop-blur-sm rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <span class="text-3xl font-bold">2</span>
-                </div>
-                <h3 class="font-bold mb-2">Mereka Order</h3>
-                <p class="text-sm opacity-90">Ketika ada yang order melalui link Anda, kami akan mencatatnya</p>
-            </div>
-            <div class="text-center">
-                <div class="bg-white/20 backdrop-blur-sm rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <span class="text-3xl font-bold">3</span>
-                </div>
-                <h3 class="font-bold mb-2">Dapatkan Komisi</h3>
-                <p class="text-sm opacity-90">Anda mendapatkan komisi ${userData.commissionRate}% dari nilai order yang berhasil</p>
-            </div>
-        </div>
-    `;
-    mainContent.appendChild(howItWorks);
     
     // Load sales data
     loadSalesData(userData.affiliateCode);
@@ -144,42 +116,42 @@ function loadSalesData(affiliateCode, startDate = null, endDate = null) {
     
     // Render statistics cards
     const statsHTML = `
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="bg-blue-100 p-3 rounded-lg">
-                        <i class="fas fa-mouse-pointer text-xl md:text-2xl text-blue-600"></i>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8">
+            <div class="bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-6 card-hover">
+                <div class="flex items-center justify-between mb-2 md:mb-4">
+                    <div class="bg-blue-100 p-2 md:p-3 rounded-lg">
+                        <i class="fas fa-mouse-pointer text-base md:text-2xl text-blue-600"></i>
                     </div>
                 </div>
-                <h3 class="text-2xl md:text-3xl font-bold mb-2">${stats.totalClicks}</h3>
-                <p class="text-text-light text-sm">Total Klik</p>
+                <h3 class="text-xl md:text-3xl font-bold mb-1 md:mb-2">${stats.totalClicks}</h3>
+                <p class="text-text-light text-xs md:text-sm">Total Klik</p>
             </div>
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="bg-green-100 p-3 rounded-lg">
-                        <i class="fas fa-shopping-cart text-xl md:text-2xl text-green-600"></i>
+            <div class="bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-6 card-hover">
+                <div class="flex items-center justify-between mb-2 md:mb-4">
+                    <div class="bg-green-100 p-2 md:p-3 rounded-lg">
+                        <i class="fas fa-shopping-cart text-base md:text-2xl text-green-600"></i>
                     </div>
                 </div>
-                <h3 class="text-2xl md:text-3xl font-bold mb-2">${stats.totalOrders}</h3>
-                <p class="text-text-light text-sm">Total Order</p>
+                <h3 class="text-xl md:text-3xl font-bold mb-1 md:mb-2">${stats.totalOrders}</h3>
+                <p class="text-text-light text-xs md:text-sm">Total Order</p>
             </div>
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="bg-purple-100 p-3 rounded-lg">
-                        <i class="fas fa-dollar-sign text-xl md:text-2xl text-purple-600"></i>
+            <div class="bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-6 card-hover">
+                <div class="flex items-center justify-between mb-2 md:mb-4">
+                    <div class="bg-purple-100 p-2 md:p-3 rounded-lg">
+                        <i class="fas fa-dollar-sign text-base md:text-2xl text-purple-600"></i>
                     </div>
                 </div>
-                <h3 class="text-lg md:text-2xl font-bold mb-2">${formatCurrency(stats.totalRevenue)}</h3>
-                <p class="text-text-light text-sm">Total Revenue</p>
+                <h3 class="text-sm md:text-2xl font-bold mb-1 md:mb-2 truncate">${formatCurrency(stats.totalRevenue)}</h3>
+                <p class="text-text-light text-xs md:text-sm">Total Revenue</p>
             </div>
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="bg-yellow-100 p-3 rounded-lg">
-                        <i class="fas fa-money-bill-wave text-xl md:text-2xl text-yellow-600"></i>
+            <div class="bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-6 card-hover">
+                <div class="flex items-center justify-between mb-2 md:mb-4">
+                    <div class="bg-yellow-100 p-2 md:p-3 rounded-lg">
+                        <i class="fas fa-money-bill-wave text-base md:text-2xl text-yellow-600"></i>
                     </div>
                 </div>
-                <h3 class="text-lg md:text-2xl font-bold mb-2">${formatCurrency(stats.totalCommission)}</h3>
-                <p class="text-text-light text-sm">Komisi (${stats.commissionRate}%)</p>
+                <h3 class="text-sm md:text-2xl font-bold mb-1 md:mb-2 truncate">${formatCurrency(stats.totalCommission)}</h3>
+                <p class="text-text-light text-xs md:text-sm">Komisi (${stats.commissionRate}%)</p>
             </div>
         </div>
     `;
