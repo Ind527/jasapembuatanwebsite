@@ -44,8 +44,127 @@
         .btn-secondary { background: #0EA5E9; color: white; transition: all 0.3s ease; }
         .btn-secondary:hover { background: #0284C7; transform: translateY(-2px); }
         .text-gradient { background: linear-gradient(135deg, #0EA5E9, #6366F1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .timeline-line { position: absolute; left: 1.5rem; top: 3rem; bottom: 0; width: 2px; background: #E5E7EB; }
-        .timeline-dot { position: relative; z-index: 10; }
+        
+        /* Enhanced Timeline Styles */
+        @media (min-width: 768px) {
+            .timeline-container-centered {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .timeline-item {
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 3rem;
+                position: relative;
+            }
+            .timeline-vertical-line {
+                position: absolute;
+                left: 50%;
+                top: 60px;
+                bottom: -3rem;
+                width: 3px;
+                background: linear-gradient(to bottom, #0EA5E9 0%, #E5E7EB 100%);
+                transform: translateX(-50%);
+                animation: growLine 0.5s ease-in-out;
+            }
+            .timeline-content {
+                flex: 1;
+                text-align: center;
+            }
+            .timeline-icon {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto 1rem auto;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                animation: scaleIn 0.5s ease-in-out;
+                position: relative;
+                z-index: 10;
+            }
+        }
+        
+        /* Mobile Timeline Styles */
+        @media (max-width: 767px) {
+            .timeline-item {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 2rem;
+                position: relative;
+            }
+            .timeline-vertical-line {
+                position: absolute;
+                left: 30px;
+                top: 60px;
+                bottom: -2rem;
+                width: 2px;
+                background: linear-gradient(to bottom, #0EA5E9 0%, #E5E7EB 100%);
+            }
+            .timeline-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                flex-shrink: 0;
+                margin-right: 1rem;
+                position: relative;
+                z-index: 10;
+            }
+            .timeline-content {
+                flex: 1;
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes growLine {
+            from {
+                height: 0;
+            }
+            to {
+                height: 100%;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline-item {
+            animation: fadeInUp 0.6s ease-in-out;
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
     </style>
 </head>
 <body class="font-manrope text-text-dark bg-bg-light">
@@ -64,7 +183,7 @@
                         <a href="portfolio.html" class="text-text-light hover:text-primary font-medium transition-colors">Portofolio</a>
                         <a href="pricing.html" class="text-text-light hover:text-primary font-medium transition-colors">Harga</a>
                         <a href="affiliate.html" class="text-text-light hover:text-primary font-medium transition-colors">Affiliate</a>
-                        <a href="order-tracking.html" class="text-primary font-medium transition-colors">Tracking</a>
+                        <a href="order-tracking.html" class="text-primary font-medium transition-colors">Pelacakan</a>
                         <a href="contact.html" class="btn-primary px-6 py-2 rounded-lg font-medium">Konsultasi Gratis</a>
                     </div>
                 </div>
@@ -86,7 +205,7 @@
                 <a href="portfolio.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Portofolio</a>
                 <a href="pricing.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Harga</a>
                 <a href="affiliate.html" class="block px-3 py-2 text-text-light hover:text-primary font-medium">Affiliate</a>
-                <a href="order-tracking.html" class="block px-3 py-2 text-primary font-medium">Tracking</a>
+                <a href="order-tracking.html" class="block px-3 py-2 text-primary font-medium">Pelacakan</a>
                 <a href="contact.html" class="block px-3 py-2 btn-primary rounded-lg font-medium text-center mt-4">Konsultasi Gratis</a>
             </div>
         </div>
@@ -193,8 +312,8 @@
 
                 <!-- Timeline -->
                 <div class="bg-white rounded-2xl shadow-lg p-8">
-                    <h2 class="text-2xl font-jakarta font-bold mb-6">Timeline Progress</h2>
-                    <div id="timeline-container" class="relative pl-12">
+                    <h2 class="text-2xl font-jakarta font-bold mb-8 text-center">Timeline Progress Pesanan</h2>
+                    <div id="timeline-container" class="timeline-container-centered">
                         <!-- Timeline items will be inserted here -->
                     </div>
                 </div>
@@ -283,19 +402,15 @@
         function displayTimeline(timeline) {
             const container = document.getElementById('timeline-container');
             container.innerHTML = timeline.map((item, index) => `
-                <div class="mb-8 ${index < timeline.length - 1 ? 'relative' : ''}">
-                    ${index < timeline.length - 1 ? '<div class="timeline-line"></div>' : ''}
-                    <div class="flex items-start">
-                        <div class="timeline-dot flex-shrink-0 w-12 h-12 rounded-full ${orderTrackingSystem.getStatusColor(item.status)} flex items-center justify-center mr-4">
-                            <span class="text-xl">${orderTrackingSystem.getStatusIcon(item.status)}</span>
+                <div class="timeline-item ${index < timeline.length - 1 ? 'relative' : ''}">
+                    ${index < timeline.length - 1 ? '<div class="timeline-vertical-line"></div>' : ''}
+                    <div class="timeline-content">
+                        <div class="timeline-icon ${orderTrackingSystem.getStatusColor(item.status)}">
+                            <span>${orderTrackingSystem.getStatusIcon(item.status)}</span>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-1">
-                                <h4 class="font-bold text-lg">${item.status}</h4>
-                                <span class="text-sm text-text-light">${formatDate(item.date)}</span>
-                            </div>
-                            <p class="text-text-light">${item.description}</p>
-                        </div>
+                        <h4 class="font-bold text-lg md:text-xl mb-2">${item.status}</h4>
+                        <p class="text-sm md:text-base text-primary font-semibold mb-2">${formatDate(item.date)}</p>
+                        <p class="text-sm md:text-base text-text-light">${item.description}</p>
                     </div>
                 </div>
             `).join('');

@@ -59,7 +59,7 @@ function renderSalesDashboard(userData) {
     // Referral Link Section
     const referralSection = document.createElement('div');
     referralSection.className = 'bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-8 mb-6 md:mb-8';
-    const referralLink = `${window.location.origin}/?ref=${userData.affiliateCode}`;
+    const referralLink = `${window.location.origin}/contact.html?ref=${userData.affiliateCode}#form-konsultasi`;
     referralSection.innerHTML = `
         <h2 class="text-xl md:text-2xl font-jakarta font-bold mb-4 md:mb-6">Link Referral Anda</h2>
         <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-3 md:p-6 rounded-lg md:rounded-xl mb-3 md:mb-4">
@@ -158,7 +158,7 @@ function loadSalesData(affiliateCode, startDate = null, endDate = null) {
     
     document.getElementById('sales-stats').innerHTML = statsHTML;
     
-    // Render orders
+    // Render orders table
     const ordersList = document.getElementById('sales-orders-list');
     if (stats.orders.length === 0) {
         ordersList.innerHTML = `
@@ -169,35 +169,80 @@ function loadSalesData(affiliateCode, startDate = null, endDate = null) {
         `;
     } else {
         const statusColors = {
-            'pending': 'bg-yellow-100 text-yellow-700',
-            'dikirim': 'bg-blue-100 text-blue-700',
-            'selesai': 'bg-green-100 text-green-700'
+            'Diproses': 'bg-yellow-100 text-yellow-700',
+            'Dalam Pengerjaan': 'bg-blue-100 text-blue-700',
+            'Review': 'bg-purple-100 text-purple-700',
+            'Selesai': 'bg-green-100 text-green-700'
         };
         
-        ordersList.innerHTML = stats.orders.map(order => `
-            <div class="border border-gray-200 rounded-lg p-4 mb-4 hover:border-primary transition-colors">
-                <div class="flex flex-col md:flex-row justify-between gap-4">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="font-mono text-xs md:text-sm bg-gray-100 px-2 py-1 rounded">${order.id}</span>
-                        </div>
-                        <p class="font-semibold">${order.customerName}</p>
-                        <p class="text-sm text-text-light">${order.productName || 'Website Custom'}</p>
-                        <p class="text-xs text-text-light mt-1">${formatDate(order.createdAt)}</p>
-                    </div>
-                    <div class="flex flex-col items-end justify-between gap-2">
-                        <div class="text-right">
-                            <div class="text-sm text-text-light">Revenue</div>
-                            <div class="font-semibold text-lg">${formatCurrency(order.amount)}</div>
-                            <div class="text-sm text-green-600">Komisi: ${formatCurrency(order.amount * (stats.commissionRate / 100))}</div>
-                        </div>
-                        <span class="px-3 py-1 rounded-lg text-sm font-medium ${statusColors[order.status] || statusColors.pending}">
-                            ${order.status || 'pending'}
-                        </span>
-                    </div>
-                </div>
+        ordersList.innerHTML = `
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">ID Pesanan</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Pembeli</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Produk</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Tanggal</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Harga</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Komisi</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        ${stats.orders.map(order => {
+                            const statusColor = statusColors[order.status] || 'bg-gray-100 text-gray-700';
+                            const commission = order.amount * (stats.commissionRate / 100);
+                            
+                            return `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <span class="font-mono text-xs bg-gray-100 px-2 py-1 rounded">${order.id}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="text-sm font-semibold text-gray-900">${order.customerName}</div>
+                                        <div class="text-xs text-gray-500">${order.customerEmail}</div>
+                                        ${order.customerPhone ? `<div class="text-xs text-gray-500"><i class="fas fa-phone text-xs mr-1"></i>${order.customerPhone}</div>` : ''}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="text-sm text-gray-900">${order.productName || 'Website Custom'}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="text-xs text-gray-600">${formatDateShort(order.createdAt)}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="text-sm font-semibold text-gray-900">${formatCurrency(order.amount)}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="text-sm font-semibold text-green-600">${formatCurrency(commission)}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 rounded-full text-xs font-medium ${statusColor}">${order.status || 'Diproses'}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex gap-1">
+                                            <button onclick="viewSalesOrderDetail('${order.id}')" 
+                                                class="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors" 
+                                                title="Lihat Detail">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            ${order.customerPhone ? `
+                                            <button onclick="contactSalesBuyer('${order.customerPhone}', '${order.customerName}')" 
+                                                class="p-1.5 text-green-600 hover:bg-green-50 rounded transition-colors" 
+                                                title="Hubungi Pembeli">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </button>
+                                            ` : ''}
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
             </div>
-        `).join('');
+        `;
     }
 }
 
@@ -237,10 +282,23 @@ function formatDate(dateString) {
     });
 }
 
-function showNotification(message) {
+function formatDateShort(dateString) {
+    return new Date(dateString).toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    });
+}
+
+function showNotification(message, type = 'success') {
+    const bgColors = {
+        'success': 'bg-green-500',
+        'error': 'bg-red-500',
+        'info': 'bg-blue-500'
+    };
     const notification = document.createElement('div');
-    notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-    notification.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${message}`;
+    notification.className = `fixed top-20 right-4 ${bgColors[type]} text-white px-6 py-3 rounded-lg shadow-lg z-50`;
+    notification.innerHTML = `<i class="fas fa-${type === 'error' ? 'times' : 'check'}-circle mr-2"></i>${message}`;
     document.body.appendChild(notification);
     
     setTimeout(() => {
@@ -248,8 +306,97 @@ function showNotification(message) {
     }, 3000);
 }
 
+// View order detail for sales
+function viewSalesOrderDetail(orderId) {
+    const orders = JSON.parse(localStorage.getItem('affiliateOrders') || '[]');
+    const order = orders.find(o => o.id === orderId);
+    
+    if (!order) {
+        showNotification('Pesanan tidak ditemukan', 'error');
+        return;
+    }
+    
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+    modal.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+                <h3 class="text-2xl font-jakarta font-bold">Detail Pesanan</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="text-sm text-gray-600">ID Pesanan</label>
+                        <div class="font-mono text-sm bg-gray-100 px-3 py-2 rounded mt-1">${order.id}</div>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-600">Tanggal Pesanan</label>
+                        <div class="font-semibold mt-1">${formatDate(order.createdAt)}</div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4 mb-6">
+                    <h4 class="font-semibold mb-3">Informasi Pembeli</h4>
+                    <div class="space-y-2">
+                        <div><span class="text-gray-600">Nama:</span> <span class="font-semibold">${order.customerName}</span></div>
+                        <div><span class="text-gray-600">Email:</span> <span class="font-semibold">${order.customerEmail}</span></div>
+                        ${order.customerPhone ? `<div><span class="text-gray-600">Telepon:</span> <span class="font-semibold">${order.customerPhone}</span></div>` : ''}
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4 mb-6">
+                    <h4 class="font-semibold mb-3">Detail Produk</h4>
+                    <div class="space-y-2">
+                        <div><span class="text-gray-600">Produk:</span> <span class="font-semibold">${order.productName || 'Website Custom'}</span></div>
+                        <div><span class="text-gray-600">Harga:</span> <span class="font-semibold text-lg text-green-600">${formatCurrency(order.amount)}</span></div>
+                        <div><span class="text-gray-600">Status:</span> <span class="font-semibold">${order.status || 'Diproses'}</span></div>
+                    </div>
+                </div>
+                
+                ${order.message ? `
+                <div class="border-t border-gray-200 pt-4">
+                    <h4 class="font-semibold mb-3">Pesan/Catatan</h4>
+                    <div class="bg-gray-50 p-3 rounded-lg text-sm">${order.message}</div>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
+}
+
+// Contact buyer via WhatsApp for sales
+function contactSalesBuyer(phoneNumber, customerName) {
+    // Clean phone number (remove spaces, dashes, etc.)
+    let cleanPhone = phoneNumber.replace(/\D/g, '');
+    
+    // If phone starts with 0, replace with 62
+    if (cleanPhone.startsWith('0')) {
+        cleanPhone = '62' + cleanPhone.substring(1);
+    }
+    // If phone doesn't start with 62, add it
+    if (!cleanPhone.startsWith('62')) {
+        cleanPhone = '62' + cleanPhone;
+    }
+    
+    const message = encodeURIComponent(`Halo ${customerName}, saya dari tim SitusKita mengenai pesanan website Anda.`);
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+}
+
 // Export functions
 window.initSalesDashboard = initSalesDashboard;
 window.applySalesFilter = applySalesFilter;
 window.clearSalesFilter = clearSalesFilter;
 window.copyToClipboard = copyToClipboard;
+window.viewSalesOrderDetail = viewSalesOrderDetail;
+window.contactSalesBuyer = contactSalesBuyer;

@@ -1,0 +1,61 @@
+1. Perbaikan Dashboard Pesanan
+Pastikan setiap pesanan baru yang dibuat oleh pembeli otomatis:
+Masuk ke Dashboard Sales → pada bagian "Pesanan Saya" milik sales yang menangani pembeli tersebut.
+Masuk juga ke Dashboard Admin → pada bagian "Daftar Pesanan Sales".
+Pastikan data pesanan mencakup:
+ID Pesanan
+Nama Pembeli
+Email Pembeli
+Produk dipesan
+Tanggal Pesanan
+Status Pesanan (Diproses / Dalam Pengerjaan / Review / Selesai)
+Nama Sales yang menangani
+Gunakan relasi database yang benar (contoh: orders terkait dengan sales dan admin).
+Pastikan admin bisa melihat semua pesanan dari semua sales, sementara sales hanya melihat pesanan miliknya sendiri.
+🌐 2. Footer Tracking
+Ubah teks "Tracking" → "Pelacakan" di footer website.
+Pastikan posisi footer menempel di bagian bawah layar di semua perangkat (desktop, tablet, dan mobile).
+Gunakan CSS:
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  z-index: 999;
+}
+body {
+  padding-bottom: 80px; /* beri ruang agar konten tidak tertutup footer */
+}
+🕓 3. Desain Timeline Progress Pesanan
+Tampilkan timeline progress pesanan seperti ini:
+Tahapan	Tanggal	Keterangan
+⏳ Diproses	15 Oktober 2025	Pesanan diterima dan sedang diverifikasi
+🔨 Dalam Pengerjaan	18 Oktober 2025	Tim development mulai mengerjakan website
+👀 Review	25 Oktober 2025	Website selesai dan menunggu review client
+✅ Selesai	28 Oktober 2025	Website telah selesai dan diserahkan ke client
+Desain yang harus diterapkan:
+Timeline tampil rata tengah (centered).
+Gunakan garis penghubung vertikal dengan animasi lembut (progress).
+Di tampilan mobile dan tablet, elemen tidak berantakan:
+Gunakan flex-direction: column;
+Sesuaikan jarak antar tahap agar tetap proporsional.
+🔗 4. Arahkan Link Sales
+Ketika pembeli mengklik link sales website (contoh dari halaman promosi sales),
+maka sistem langsung diarahkan ke halaman “Kontak” pada bagian Form Konsultasi.
+Gunakan anchor auto-scroll: href="/kontak#form-konsultasi"
+Atau gunakan JS redirect:
+window.location.href = "/kontak#form-konsultasi";
+⚙️ 5. Aksi yang Harus Ditambahkan di Bagian "Aksi" (Dashboard)
+Tambahkan tombol aksi berikut di kolom “Aksi” pada tabel pesanan:
+Lihat Detail → membuka modal detail pesanan.
+Ubah Status → dropdown untuk ubah status ke (Diproses / Dalam Pengerjaan / Review / Selesai).
+Hapus Pesanan → konfirmasi sebelum hapus data.
+Hubungi Pembeli → link langsung ke WhatsApp pembeli jika ada nomor, format:
+window.open(`https://wa.me/${nomorPembeli}?text=Halo, saya dari tim Indogreen Export mengenai pesanan Anda.`);
+✅ Tujuan Akhir
+Semua pesanan tercatat otomatis dan tampil di dashboard sales dan admin.
+Footer “Pelacakan” tampil menempel di semua perangkat.
+Timeline Progress rapi dan responsif.
+Link sales langsung ke form konsultasi.
+Dashboard aksi lengkap dan berfungsi.
